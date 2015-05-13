@@ -25,6 +25,7 @@ public class Match {
     /* Team1 vs Team2 as generic names */
     private Team team1 = null;
     private Team team2 = null;
+    private String UUID = null;
     private ETOSS_WON toss_won = ETOSS_WON.TOSS_NOT_DONE;
     private EDECSISON_TEAM team_decision = EDECSISON_TEAM.NO_DECISION_YET;
 

@@ -18,16 +18,14 @@
  */
 package se.naresh.com.crickboard;
 
-public class Team {
-    private String name = null;
-    private Integer matchesPlayed = 0;
-    private Integer matchesWon = 0;
-    private Integer matchesLost = 0;
-    private Integer matchesForfeited = 0;
-    private Integer matchesDraw = 0;
-    private MatchPlayers playerList = null;
+public class MatchPlayers {
+    /* 11 Main and 4 Substitutes who can be null */
+    private static final Integer noOfPlayersPerMatch = 15;
+    Player[] matchPlayers = null;
     private String UUID = null;
+    /* TODO: Define Serial and DB management params in the class itself */
 
-    /* TODO: Define serial and DB related params in the class itself */
-
+    MatchPlayers() {
+        matchPlayers = new Player[noOfPlayersPerMatch];
+    }
 }
