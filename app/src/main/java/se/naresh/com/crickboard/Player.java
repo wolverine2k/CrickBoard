@@ -18,12 +18,52 @@
  */
 package se.naresh.com.crickboard;
 
+import java.util.UUID;
+
 public class Player {
     private String name;
     private Integer age;
-    private Integer runsScored;
-    private Integer matchesPlayed;
-    private Integer wicketsTaken;
+    private Integer runsScored = 0;
+    private Integer matchesPlayed = 0;
+    private Integer wicketsTaken = 0;
 
-    private String UUID = null;
+    private UUID myUUID = null;
+    private Boolean foundInDB = false;
+
+    public Player(String aName, int aAge) {
+        myUUID = Utility.generateUUID();
+        name = aName; age = aAge;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setWicketsTaken(Integer aWicketsTaken) {
+        wicketsTaken = aWicketsTaken;
+    }
+
+    public Integer getWicketsTaken() {
+        return wicketsTaken;
+    }
+
+    public void setMatchesPlayed(Integer aMatchesPlayed) {
+        matchesPlayed = aMatchesPlayed;
+    }
+
+    public Integer getMatchesPlayed() {
+        return matchesPlayed;
+    }
+
+    public void setRunsScored(Integer aRunsScored) {
+        runsScored = aRunsScored;
+    }
+
+    public Integer getRunsScored() {
+        return runsScored;
+    }
 }

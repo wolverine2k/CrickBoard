@@ -20,17 +20,8 @@ package se.naresh.com.crickboard;
 
 import java.util.UUID;
 
-public class MatchPlayers {
-    /* 11 Main and 4 Substitutes who can be null */
-    private static final Integer noOfPlayersPerMatch = 15;
-    Player[] matchPlayers = null;
-
-    private UUID myUUID = null;
-    private Boolean foundInDB = false;
-    /* TODO: Define Serial and DB management params in the class itself */
-
-    MatchPlayers() {
-        myUUID = Utility.generateUUID();
-        matchPlayers = new Player[noOfPlayersPerMatch];
+public class Utility {
+    public static UUID generateUUID() {
+        return UUID.randomUUID();
     }
 }
