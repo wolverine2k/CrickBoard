@@ -18,6 +18,7 @@
  */
 package se.naresh.com.crickboard;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
 
 public final class DataBaseContracts {
@@ -30,6 +31,14 @@ public final class DataBaseContracts {
     /* Empty Constructor to avoid unwanted instantiations */
     public DataBaseContracts() {}
 
+    public static void createSQLTables(SQLiteDatabase db) {
+        db.execSQL(PlayerTable.SQL_CREATE_TABLE);
+        db.execSQL(MatchPlayersTable.SQL_CREATE_TABLE);
+        db.execSQL(MatchTable.SQL_CREATE_TABLE);
+        db.execSQL(MatchPlayersListingTable.SQL_CREATE_TABLE);
+        db.execSQL(TeamTable.SQL_CREATE_TABLE);
+    }
+
     public static abstract class MatchTable implements BaseColumns {
         public static final String TABLE_NAME = "Match";
         public static final String COLUMN_UUID = "Uuid";
@@ -40,7 +49,7 @@ public final class DataBaseContracts {
         /* Integer type 0 = batting, 1 = balling, correlated with TossWon */
         public static final String COLUMN_DECISION = "TeamDecision";
 
-        public static final String SQL_CREATE_TABLE =
+        private static final String SQL_CREATE_TABLE =
                 CREATE_TABLE + MatchTable.TABLE_NAME + " (" + MatchTable._ID +
                 INT_PRIMARY_KEY + COLUMN_UUID + TEXT_TYPE + COMMA_SEP +
                 COLUMN_FR_TEAM1 + INT_TYPE + COMMA_SEP +
@@ -48,7 +57,7 @@ public final class DataBaseContracts {
                 COLUMN_TOSS_WON + INT_TYPE + COMMA_SEP +
                 COLUMN_DECISION + INT_TYPE + " )";
 
-        public static final String SQL_DROP_TABLE =
+        private static final String SQL_DROP_TABLE =
                 DROP_TABLE_IF_EXISTS + MatchTable.TABLE_NAME;
     }
 
@@ -57,12 +66,12 @@ public final class DataBaseContracts {
         public static final String COLUMN_UUID = "Uuid";
         public static final String COLUMN_NOOFPLAYERS = "NoOfPlayers";
 
-        public static final String SQL_CREATE_TABLE =
+        private static final String SQL_CREATE_TABLE =
                 CREATE_TABLE + MatchPlayersTable.TABLE_NAME + " (" + MatchPlayersTable._ID +
                 INT_PRIMARY_KEY + COLUMN_UUID + TEXT_TYPE + COMMA_SEP +
                 COLUMN_NOOFPLAYERS + INT_TYPE + " )";
 
-        public static final String SQL_DROP_TABLE =
+        private static final String SQL_DROP_TABLE =
                 DROP_TABLE_IF_EXISTS + MatchPlayersTable.TABLE_NAME;
     }
 
@@ -76,7 +85,7 @@ public final class DataBaseContracts {
         public static final String COLUMN_MATCHESDRAW = "MatchesDraw";
         public static final String COLUMN_FR_MATCHPLAYERLISTING = "FR_MatchPlayersListingTable_ID";
 
-        public static final String SQL_CREATE_TABLE =
+        private static final String SQL_CREATE_TABLE =
                 CREATE_TABLE + TeamTable.TABLE_NAME + " (" + TeamTable._ID +
                 INT_PRIMARY_KEY + COLUMN_UUID + TEXT_TYPE + COMMA_SEP +
                 COLUMN_FR_MATCHPLAYERLISTING + INT_TYPE + COMMA_SEP +
@@ -86,7 +95,7 @@ public final class DataBaseContracts {
                 COLUMN_MATCHESPLAYED + INT_TYPE + COMMA_SEP +
                 COLUMN_MATCHESWON + INT_TYPE + " )";
 
-        public static final String SQL_DROP_TABLE =
+        private static final String SQL_DROP_TABLE =
                 DROP_TABLE_IF_EXISTS + TeamTable.TABLE_NAME;
     }
 
@@ -95,12 +104,12 @@ public final class DataBaseContracts {
         public static final String COLUMN_FR_MATCHPLAYERS = "FR_MatchPlayersTable_ID";
         public static final String COLUMN_FR_PLAYERS = "FR_PlayerTable_ID";
 
-        public static final String SQL_CREATE_TABLE =
+        private static final String SQL_CREATE_TABLE =
             CREATE_TABLE + MatchPlayersListingTable.TABLE_NAME + " (" + MatchPlayersListingTable._ID +
             INT_PRIMARY_KEY + COLUMN_FR_MATCHPLAYERS + INT_TYPE + COMMA_SEP +
             COLUMN_FR_PLAYERS + INT_TYPE + " )";
 
-        public static final String SQL_DROP_TABLE =
+        private static final String SQL_DROP_TABLE =
                 DROP_TABLE_IF_EXISTS + MatchPlayersListingTable.TABLE_NAME;
     }
 
@@ -113,7 +122,7 @@ public final class DataBaseContracts {
         public static final String COLUMN_MATCHES_PLAYED = "MatchesPlayed";
         public static final String COLUMN_WICKETS_TAKEN = "WicketsTaken";
 
-        public static final String SQL_CREATE_TABLE =
+        private static final String SQL_CREATE_TABLE =
                 CREATE_TABLE + PlayerTable.TABLE_NAME + " (" + PlayerTable._ID +
                 INT_PRIMARY_KEY + COLUMN_NAME + TEXT_TYPE + COMMA_SEP +
                 COLUMN_AGE + INT_TYPE + COMMA_SEP +
@@ -122,7 +131,7 @@ public final class DataBaseContracts {
                 COLUMN_WICKETS_TAKEN + INT_TYPE + COMMA_SEP +
                 COLUMN_UUID + TEXT_TYPE + " )";
 
-        public static final String SQL_DROP_TABLE =
+        private static final String SQL_DROP_TABLE =
                 DROP_TABLE_IF_EXISTS + PlayerTable.TABLE_NAME;
     }
 }

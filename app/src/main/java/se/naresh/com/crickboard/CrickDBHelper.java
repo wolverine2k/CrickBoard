@@ -21,6 +21,7 @@ package se.naresh.com.crickboard;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.provider.ContactsContract;
 
 public class CrickDBHelper extends SQLiteOpenHelper{
     /* No downgrade possible on this SW for the moment */
@@ -34,7 +35,7 @@ public class CrickDBHelper extends SQLiteOpenHelper{
     @Override
     public void onCreate(SQLiteDatabase db) {
         /* Create all the necessary DB tables... */
-        db.execSQL(DataBaseContracts.PlayerTable.SQL_CREATE_TABLE);
+        DataBaseContracts.createSQLTables(db);
     }
 
     @Override
