@@ -18,6 +18,7 @@
  */
 package se.naresh.com.crickboard;
 
+import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
 
@@ -59,6 +60,14 @@ public final class DataBaseContracts {
 
         private static final String SQL_DROP_TABLE =
                 DROP_TABLE_IF_EXISTS + MatchTable.TABLE_NAME;
+
+        /* Returns -1 if the insertion fails. DB should be in writable
+        * i.e. CrickDBHelper.getWritableDatabase()*/
+        public static long insertMatch(SQLiteDatabase db, ContentValues values) {
+            /* TODO: Check for the proper values before insertion
+            * range checks, data validity, etc. here */
+            return db.insert(TABLE_NAME, null, values);
+        }
     }
 
     public static abstract class MatchPlayersTable implements BaseColumns {
@@ -73,6 +82,14 @@ public final class DataBaseContracts {
 
         private static final String SQL_DROP_TABLE =
                 DROP_TABLE_IF_EXISTS + MatchPlayersTable.TABLE_NAME;
+
+        /* Returns -1 if the insertion fails. DB should be in writable
+        * i.e. CrickDBHelper.getWritableDatabase()*/
+        public static long insertMatchPlayers(SQLiteDatabase db, ContentValues values) {
+            /* TODO: Check for the proper values before insertion
+            * range checks, data validity, etc. here */
+            return db.insert(TABLE_NAME, null, values);
+        }
     }
 
     public static abstract class TeamTable implements BaseColumns {
@@ -97,6 +114,14 @@ public final class DataBaseContracts {
 
         private static final String SQL_DROP_TABLE =
                 DROP_TABLE_IF_EXISTS + TeamTable.TABLE_NAME;
+
+        /* Returns -1 if the insertion fails. DB should be in writable
+        * i.e. CrickDBHelper.getWritableDatabase()*/
+        public static long insertTeam(SQLiteDatabase db, ContentValues values) {
+            /* TODO: Check for the proper values before insertion
+            * range checks, data validity, etc. here */
+            return db.insert(TABLE_NAME, null, values);
+        }
     }
 
     public static abstract class MatchPlayersListingTable implements BaseColumns {
@@ -111,6 +136,14 @@ public final class DataBaseContracts {
 
         private static final String SQL_DROP_TABLE =
                 DROP_TABLE_IF_EXISTS + MatchPlayersListingTable.TABLE_NAME;
+
+        /* Returns -1 if the insertion fails. DB should be in writable
+        * i.e. CrickDBHelper.getWritableDatabase()*/
+        public static long insertMatchPlayersListing(SQLiteDatabase db, ContentValues values) {
+            /* TODO: Check for the proper values before insertion
+            * range checks, data validity, etc. here */
+            return db.insert(TABLE_NAME, null, values);
+        }
     }
 
     public static abstract class PlayerTable implements BaseColumns {
@@ -133,5 +166,13 @@ public final class DataBaseContracts {
 
         private static final String SQL_DROP_TABLE =
                 DROP_TABLE_IF_EXISTS + PlayerTable.TABLE_NAME;
+
+        /* Returns -1 if the insertion fails. DB should be in writable
+        * i.e. CrickDBHelper.getWritableDatabase()*/
+        public static long insertPlayer(SQLiteDatabase db, ContentValues values) {
+            /* TODO: Check for the proper values before insertion
+            * range checks, data validity, etc. here */
+            return db.insert(TABLE_NAME, null, values);
+        }
     }
 }
