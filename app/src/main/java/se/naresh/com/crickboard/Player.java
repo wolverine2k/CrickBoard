@@ -18,52 +18,59 @@
  */
 package se.naresh.com.crickboard;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
 import java.util.UUID;
 
+@DatabaseTable (tableName = "OrmPlayerTable")
 public class Player {
+
+    @DatabaseField (useGetSet = true)
     private String name;
-    private Integer age;
-    private Integer runsScored = 0;
-    private Integer matchesPlayed = 0;
-    private Integer wicketsTaken = 0;
-
-    private UUID myUUID = null;
-    private Boolean foundInDB = false;
-
-    public Player(String aName, int aAge) {
-        myUUID = Utility.generateUUID();
-        name = aName; age = aAge;
-    }
-
     public String getName() {
         return name;
     }
+    public void setName(String aName) { name = aName; }
 
-    public Integer getAge() {
-        return age;
+    @DatabaseField (useGetSet = true)
+    private Integer age;
+    public Integer getAge() { return age; }
+    public void setAge(Integer aAge) { age = aAge; }
+
+    @DatabaseField (useGetSet = true)
+    private Integer runsScored = 0;
+    public void setRunsScored(Integer aRunsScored) {
+        runsScored = aRunsScored;
+    }
+    public Integer getRunsScored() {
+        return runsScored;
     }
 
-    public void setWicketsTaken(Integer aWicketsTaken) {
-        wicketsTaken = aWicketsTaken;
-    }
-
-    public Integer getWicketsTaken() {
-        return wicketsTaken;
-    }
-
+    @DatabaseField (useGetSet = true)
+    private Integer matchesPlayed = 0;
     public void setMatchesPlayed(Integer aMatchesPlayed) {
         matchesPlayed = aMatchesPlayed;
     }
-
     public Integer getMatchesPlayed() {
         return matchesPlayed;
     }
 
-    public void setRunsScored(Integer aRunsScored) {
-        runsScored = aRunsScored;
+    @DatabaseField (useGetSet = true)
+    private Integer wicketsTaken = 0;
+    public void setWicketsTaken(Integer aWicketsTaken) {
+        wicketsTaken = aWicketsTaken;
+    }
+    public Integer getWicketsTaken() {
+        return wicketsTaken;
     }
 
-    public Integer getRunsScored() {
-        return runsScored;
-    }
+    @DatabaseField (id = true, canBeNull = false, unique = true)
+    private UUID myUUID = null;
+    public UUID getMyUUID() { return myUUID; }
+
+    private Boolean foundInDB = false;
+
+    /* No argument constructor needed by OrmLite... */
+    Player() { }
 }

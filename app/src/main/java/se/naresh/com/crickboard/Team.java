@@ -18,16 +18,50 @@
  */
 package se.naresh.com.crickboard;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
+import java.util.UUID;
+
+@DatabaseTable (tableName = "OrmTeamTable")
 public class Team {
+
+    @DatabaseField (useGetSet = true)
     private String name = null;
+    public String getName() { return name; }
+    public void setName(String aName) { name = aName; }
+
+    @DatabaseField (useGetSet = true)
     private Integer matchesPlayed = 0;
+    public Integer getMatchesPlayed() { return matchesPlayed; }
+    public void setMatchesPlayed(Integer aMatchesPlayed) { matchesPlayed = aMatchesPlayed; }
+
+    @DatabaseField (useGetSet = true)
     private Integer matchesWon = 0;
+    public Integer getMatchesWon() { return matchesWon; }
+    public void setMatchesWon(Integer aMatchesWon) { matchesWon = aMatchesWon; }
+
+    @DatabaseField (useGetSet = true)
     private Integer matchesLost = 0;
+    public Integer getMatchesLost() { return matchesLost; }
+    public void setMatchesLost(Integer aMatchesLost) { matchesLost = aMatchesLost; }
+
+    @DatabaseField (useGetSet = true)
     private Integer matchesForfeited = 0;
+    public Integer getMatchesForfeited() { return matchesForfeited; }
+    public void setMatchesForfeited(Integer aMatchesForfeited) { matchesForfeited = aMatchesForfeited; }
+
+    @DatabaseField (useGetSet = true)
     private Integer matchesDraw = 0;
+    public Integer getMatchesDraw() { return matchesDraw; }
+    public void setMatchesDraw(Integer aMatchesDraw) { matchesDraw = aMatchesDraw; }
+
     private MatchPlayers playerList = null;
-    private String UUID = null;
 
-    /* TODO: Define serial and DB related params in the class itself */
+    @DatabaseField (id = true, canBeNull = false, unique = true)
+    private UUID myUUID = null;
+    public UUID getMyUUID() { return myUUID; }
 
+    /* No argument constructor needed by OrmLite... */
+    Team() {  }
 }

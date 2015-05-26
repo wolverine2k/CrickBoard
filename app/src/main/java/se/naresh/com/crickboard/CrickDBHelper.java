@@ -23,13 +23,16 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.ContactsContract;
 
-public class CrickDBHelper extends SQLiteOpenHelper{
+public class CrickDBHelper extends SQLiteOpenHelper {
     /* No downgrade possible on this SW for the moment */
     public static final int DB_VERSION = 1;
     public static final String DB_NAME = "CrickBoard";
 
+    private DataBaseContracts dbContracts = null;
+
     public CrickDBHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
+        dbContracts = new DataBaseContracts(this);
     }
 
     @Override
