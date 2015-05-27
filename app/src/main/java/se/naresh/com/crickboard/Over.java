@@ -18,8 +18,42 @@
  */
 package se.naresh.com.crickboard;
 
+import com.j256.ormlite.dao.ForeignCollection;
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
+
+import java.util.UUID;
 
 @DatabaseTable(tableName = "OrmOverTable")
 public class Over {
+
+    @DatabaseField(id = true, canBeNull = false, unique = true)
+    private UUID myUUID = null;
+    public UUID getMyUUID() { return myUUID; }
+
+    @ForeignCollectionField
+    private ForeignCollection<Ball> ballsInOver;
+
+    /* TODO: Use for reducing DB Access */
+    private Integer noOfRunsInOver = 0;
+    private Integer noOfWicketsInOver = 0;
+    private Integer noOfExtrasInOver = 0;
+
+    public Integer getNoOfExtrasInOver() {
+        return 0;
+    }
+
+    /* TODO: NoOfRuns should be automatically calculated from ballsInOver */
+    public Integer getNoOfRunsInOver() {
+        return 0;
+    }
+
+    /* TODO: getNoOfWicketsInOver should be automatically calculated from ballsInOver */
+    public Integer getNoOfWicketsInOver() {
+        return 0;
+    }
+
+    /* No argument constructor needed by OrmLite... */
+    Over() { myUUID = Utility.generateUUID(); }
 }
