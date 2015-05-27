@@ -18,7 +18,9 @@
  */
 package se.naresh.com.crickboard;
 
+import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 import java.util.UUID;
@@ -56,11 +58,11 @@ public class Team {
     public Integer getMatchesDraw() { return matchesDraw; }
     public void setMatchesDraw(Integer aMatchesDraw) { matchesDraw = aMatchesDraw; }
 
-    private MatchPlayers playerList = null;
-
     @DatabaseField (id = true, canBeNull = false, unique = true)
     private UUID myUUID = null;
     public UUID getMyUUID() { return myUUID; }
+
+    private MatchPlayers matchPlayers;
 
     /* No argument constructor needed by OrmLite... */
     Team() {  }

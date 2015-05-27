@@ -18,28 +18,54 @@
  */
 package se.naresh.com.crickboard;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
+import java.util.UUID;
+
+@DatabaseTable(tableName = "OrmMatchTable")
 public class Match {
     enum ETOSS_WON { TEAM1_WINTOSS, TEAM2_WINTOSS, TOSS_NOT_DONE };
     enum EDECSISON_TEAM { BAT, BOWL_FIELD, NO_DECISION_YET };
 
     /* Team1 vs Team2 as generic names */
+    @DatabaseField (foreign = true, canBeNull = false, columnName = "team1UUID")
     private Team team1 = null;
+
+    @DatabaseField (foreign = true, canBeNull = false, columnName = "team2UUID")
     private Team team2 = null;
-    private String UUID = null;
-    private ETOSS_WON toss_won = ETOSS_WON.TOSS_NOT_DONE;
-    private EDECSISON_TEAM team_decision = EDECSISON_TEAM.NO_DECISION_YET;
+
+
+    @DatabaseField (id = true, canBeNull = false, unique = true)
+    private UUID myUUID = null;
+    public UUID getMyUUID() { return myUUID; }
+
+    @DatabaseField (useGetSet = true)
+    private ETOSS_WON tossWon = ETOSS_WON.TOSS_NOT_DONE;
+    public ETOSS_WON getTossWon() { return tossWon; }
+    public void setTossWon(ETOSS_WON aTossWonEnum) { tossWon = aTossWonEnum; }
+
+    @DatabaseField (useGetSet = true)
+    private EDECSISON_TEAM teamDecision = EDECSISON_TEAM.NO_DECISION_YET;
+    public EDECSISON_TEAM getTeamDecision() { return teamDecision; }
+    public void setTeamDecision(EDECSISON_TEAM aPlayDecision) { teamDecision = aPlayDecision; }
+
+    @DatabaseField
+    private UUID team1UUID = null;
+    @DatabaseField
+    private UUID team2UUID = null;
 
     public Team getBattingTeam() {
         Team outTeam = null;
-        if((toss_won == ETOSS_WON.TEAM1_WINTOSS &&
-                team_decision == EDECSISON_TEAM.BAT) ||
-                (toss_won == ETOSS_WON.TEAM2_WINTOSS &&
-                team_decision == EDECSISON_TEAM.BOWL_FIELD)) {
+        if((tossWon == ETOSS_WON.TEAM1_WINTOSS &&
+                teamDecision == EDECSISON_TEAM.BAT) ||
+                (tossWon == ETOSS_WON.TEAM2_WINTOSS &&
+                teamDecision == EDECSISON_TEAM.BOWL_FIELD)) {
             outTeam = team1;
-        } else if((toss_won == ETOSS_WON.TEAM1_WINTOSS &&
-                team_decision == EDECSISON_TEAM.BOWL_FIELD) ||
-                (toss_won == ETOSS_WON.TEAM2_WINTOSS &&
-                team_decision == EDECSISON_TEAM.BAT)) {
+        } else if((tossWon == ETOSS_WON.TEAM1_WINTOSS &&
+                teamDecision == EDECSISON_TEAM.BOWL_FIELD) ||
+                (tossWon == ETOSS_WON.TEAM2_WINTOSS &&
+                teamDecision == EDECSISON_TEAM.BAT)) {
             outTeam = team2;
         }
         return outTeam;
@@ -60,19 +86,6 @@ public class Match {
         team2 = aTeam2;
     }
 
-    public void setTossWon(ETOSS_WON aTossWonEnum) {
-        toss_won = aTossWonEnum;
-    }
-
-    public void setTeamDecision(EDECSISON_TEAM aPlayDecision) {
-        team_decision = aPlayDecision;
-    }
-
-    public ETOSS_WON getTossWon() {
-        return toss_won;
-    }
-
-    public EDECSISON_TEAM getTeamDecision() {
-        return team_decision;
-    }
+    /* No argument constructor needed by OrmLite... */
+    Match() {  }
 }

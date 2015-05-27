@@ -25,22 +25,36 @@ import com.j256.ormlite.table.DatabaseTable;
 
 import java.util.UUID;
 
-@DatabaseTable(tableName = "OrmMatchPlayersTable")
-public class MatchPlayers {
-
-    @ForeignCollectionField(eager = true)
-    private ForeignCollection<Player> matchPlayers;
-
-    @DatabaseField(foreign = true, canBeNull = false, columnName = "matchUUID")
-    private Match match = null;
-
-    @DatabaseField(foreign = true, canBeNull = false, columnName = "teamUUID")
-    private Team team = null;
-
-    @DatabaseField (id = true, canBeNull = false, unique = true)
+@DatabaseTable(tableName = "OrmBallTable")
+public class Ball {
+    @DatabaseField(id = true, canBeNull = false, unique = true)
     private UUID myUUID = null;
     public UUID getMyUUID() { return myUUID; }
 
+    @DatabaseField
+    public Boolean isWide = false;
+
+    @DatabaseField
+    public Boolean isNoBall = false;
+
+    @DatabaseField
+    public Integer runsOnThisBall = 0;
+
+    @DatabaseField
+    public Boolean isValidBall = true;
+
+    @DatabaseField
+    public Boolean wicketTaken = false;
+
+    @DatabaseField(foreign = true, canBeNull = false, columnName = "ballerUUID")
+    public Player bowledBy;
+
+    /* Runs can be scored by a noBall/wide, etc. Hence the player can be NULL
+    * TODO: Confirm with cricketers for a NULL possibility for player...
+    * */
+    @DatabaseField(foreign = true, canBeNull = true, columnName = "batsmanUUID")
+    public Player battedBy;
+
     /* No argument constructor needed by OrmLite... */
-    MatchPlayers() { myUUID = Utility.generateUUID(); }
+    Ball() { myUUID = Utility.generateUUID(); }
 }
