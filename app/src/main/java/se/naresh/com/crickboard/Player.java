@@ -73,4 +73,6 @@ public class Player {
 
     /* No argument constructor needed by OrmLite... */
     Player() { }
+
+
 }
