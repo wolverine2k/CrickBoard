@@ -46,6 +46,12 @@ public class Ball {
     @DatabaseField
     public Boolean wicketTaken = false;
 
+    @DatabaseField
+    public Boolean isDeadBall = false;
+
+    @DatabaseField
+    public Integer ballSeqNumber = 0;
+
     @DatabaseField(foreign = true, canBeNull = false, columnName = "ballerUUID")
     public Player bowledBy;
 

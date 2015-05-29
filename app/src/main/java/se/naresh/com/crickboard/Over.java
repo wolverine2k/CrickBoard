@@ -35,6 +35,9 @@ public class Over {
     @ForeignCollectionField
     private ForeignCollection<Ball> ballsInOver;
 
+    @DatabaseField
+    public Integer overSeqNumber = 0;
+
     /* TODO: Use for reducing DB Access */
     private Integer noOfRunsInOver = 0;
     private Integer noOfWicketsInOver = 0;

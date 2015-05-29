@@ -25,11 +25,14 @@ import java.util.UUID;
 
 @DatabaseTable(tableName = "OrmWicketTable")
 public class Wicket {
-    enum EWICKET_TYPE { CLEAN_BOLD, CAUGHT, RUN_OUT, STUMPED };
+    enum EWICKET_TYPE { CLEAN_BOLD, CAUGHT, RUN_OUT, STUMPED, RETIRED_HURT, NOT_SET };
 
     @DatabaseField(id = true, canBeNull = false, unique = true)
     private UUID myUUID = null;
     public UUID getMyUUID() { return myUUID; }
+
+    @DatabaseField
+    public EWICKET_TYPE wicketType = EWICKET_TYPE.NOT_SET;
 
     @DatabaseField (foreign = true, canBeNull = false, columnName = "ballUUID")
     private Ball wicketOnBall = null;
