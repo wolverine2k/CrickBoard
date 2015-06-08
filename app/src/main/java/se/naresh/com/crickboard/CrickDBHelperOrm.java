@@ -20,12 +20,17 @@ package se.naresh.com.crickboard;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.support.ConnectionSource;
+import com.j256.ormlite.table.TableUtils;
+
+import java.sql.SQLException;
 
 public class CrickDBHelperOrm extends OrmLiteSqliteOpenHelper {
+    private static final String LOG_TAG = CrickDBHelper.class.getName();
     /* No downgrade possible on this SW for the moment */
     private static final int DB_VERSION = 1;
     private static final String DB_NAME = "CrickBoard.sqlite";
@@ -40,11 +45,60 @@ public class CrickDBHelperOrm extends OrmLiteSqliteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase database, ConnectionSource connectionSource) {
+        try {
+            TableUtils.createTable(connectionSource, Player.class);
+            TableUtils.createTable(connectionSource, Ball.class);
+            TableUtils.createTable(connectionSource, Wicket.class);
+        } catch (SQLException e) {
+            Log.e(LOG_TAG, "Error while creating database tables " + e.getMessage());
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
 
+    public Dao<Wicket, String> getWicketTableDao() {
+        if(null == wicketTableDao) {
+            try {
+                wicketTableDao = getDao(Wicket.class);
+            } catch (SQLException e) {
+                Log.e(LOG_TAG, "Error while getting WicketDao" + e.getMessage());
+                e.printStackTrace();
+                throw new RuntimeException(e);
+            }
+        }
+        return wicketTableDao;
+    }
+
+    public Dao<Ball, String> getBallTableDao() {
+        if(null == ballTableDao) {
+            try {
+                ballTableDao = getDao(Ball.class);
+            } catch (SQLException e) {
+                Log.e(LOG_TAG, "Error while getting BallDao" + e.getMessage());
+                e.printStackTrace();
+                throw new RuntimeException(e);
+            }
+        }
+        return ballTableDao;
+    }
+
+    public Dao<Player, String> getPlayerTableDao() {
+        if(null == playerTableDao) {
+            try {
+                playerTableDao = getDao(Player.class);
+            } catch (SQLException e) {
+                Log.e(LOG_TAG, "Error while getting PlayerDao" + e.getMessage());
+                e.printStackTrace();
+                throw new RuntimeException(e);
+            }
+        }
+        return playerTableDao;
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase database, ConnectionSource connectionSource, int oldVersion, int newVersion) {
-
+        /* TODO: On a DB Upgrade, check the version and provide for utility
+        * copy functions that creates new database, copies data from old and
+        * removes the old database... NOT USED FOR THE TIME BEING */
     }
 }
