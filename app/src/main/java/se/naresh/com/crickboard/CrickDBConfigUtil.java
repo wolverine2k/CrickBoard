@@ -30,9 +30,14 @@ import java.sql.SQLException;
  * The configuration file is written to /res/raw/ by default. More info at: http://ormlite.com/docs/table-config
  */
 public class CrickDBConfigUtil extends OrmLiteConfigUtil {
-    public static final String ORM_CONFIG_FILENAME = "crickDB_ormConfig.txt";
+    private static final Class<?>[] classes = new Class[] {
+        Player.class, Wicket.class, Team.class, Season.class,
+        Over.class, MatchPlayers.class, Match.class, Ball.class
+    };
+
+    private static final String ORM_CONFIG_FILENAME = "crickdb_ormconfig.txt";
 
     public static void main(String[] args) throws SQLException, IOException {
-        writeConfigFile(ORM_CONFIG_FILENAME);
+        writeConfigFile(ORM_CONFIG_FILENAME, classes);
     }
 }

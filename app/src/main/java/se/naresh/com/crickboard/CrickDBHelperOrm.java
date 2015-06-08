@@ -49,8 +49,7 @@ public class CrickDBHelperOrm extends OrmLiteSqliteOpenHelper {
 
     public CrickDBHelperOrm(Context context) {
         //super(context, databaseName, factory, databaseVersion);
-        super(context, DB_NAME, null, DB_VERSION);
-        /* TODO: Add the input stream to the CrickDBConfigUtil filename */
+        super(context, DB_NAME, null, DB_VERSION, R.raw.crickdb_ormconfig);
     }
 
     @Override

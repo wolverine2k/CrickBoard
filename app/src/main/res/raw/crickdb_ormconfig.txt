@@ -1,0 +1,272 @@
+#
+# generated on 2015/06/08 07:31:59
+#
+# --table-start--
+dataClass=se.naresh.com.crickboard.Player
+tableName=OrmPlayerTable
+# --table-fields-start--
+# --field-start--
+fieldName=name
+useGetSet=true
+# --field-end--
+# --field-start--
+fieldName=age
+useGetSet=true
+# --field-end--
+# --field-start--
+fieldName=runsScored
+useGetSet=true
+# --field-end--
+# --field-start--
+fieldName=matchesPlayed
+useGetSet=true
+# --field-end--
+# --field-start--
+fieldName=wicketsTaken
+useGetSet=true
+# --field-end--
+# --field-start--
+fieldName=myUUID
+canBeNull=false
+id=true
+unique=true
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=se.naresh.com.crickboard.Wicket
+tableName=OrmWicketTable
+# --table-fields-start--
+# --field-start--
+fieldName=myUUID
+canBeNull=false
+id=true
+unique=true
+# --field-end--
+# --field-start--
+fieldName=wicketType
+# --field-end--
+# --field-start--
+fieldName=wicketOnBall
+columnName=ballUUID
+canBeNull=false
+foreign=true
+# --field-end--
+# --field-start--
+fieldName=caughtPlayer
+columnName=caughtUUID
+canBeNull=false
+foreign=true
+useGetSet=true
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=se.naresh.com.crickboard.Team
+tableName=OrmTeamTable
+# --table-fields-start--
+# --field-start--
+fieldName=name
+useGetSet=true
+# --field-end--
+# --field-start--
+fieldName=matchesPlayed
+useGetSet=true
+# --field-end--
+# --field-start--
+fieldName=matchesWon
+useGetSet=true
+# --field-end--
+# --field-start--
+fieldName=matchesLost
+useGetSet=true
+# --field-end--
+# --field-start--
+fieldName=matchesForfeited
+useGetSet=true
+# --field-end--
+# --field-start--
+fieldName=matchesDraw
+useGetSet=true
+# --field-end--
+# --field-start--
+fieldName=myUUID
+canBeNull=false
+id=true
+unique=true
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=se.naresh.com.crickboard.Season
+tableName=OrmSeasonTable
+# --table-fields-start--
+# --field-start--
+fieldName=myUUID
+canBeNull=false
+id=true
+unique=true
+# --field-end--
+# --field-start--
+fieldName=name
+useGetSet=true
+# --field-end--
+# --field-start--
+fieldName=year
+useGetSet=true
+# --field-end--
+# --field-start--
+fieldName=seasonMatches
+foreignCollection=true
+foreignCollectionEager=true
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=se.naresh.com.crickboard.Over
+tableName=OrmOverTable
+# --table-fields-start--
+# --field-start--
+fieldName=myUUID
+canBeNull=false
+id=true
+unique=true
+# --field-end--
+# --field-start--
+fieldName=ballsInOver
+foreignCollection=true
+# --field-end--
+# --field-start--
+fieldName=overSeqNumber
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=se.naresh.com.crickboard.MatchPlayers
+tableName=OrmMatchPlayersTable
+# --table-fields-start--
+# --field-start--
+fieldName=matchPlayers
+foreignCollection=true
+foreignCollectionEager=true
+# --field-end--
+# --field-start--
+fieldName=match
+columnName=matchUUID
+canBeNull=false
+foreign=true
+# --field-end--
+# --field-start--
+fieldName=team
+columnName=teamUUID
+canBeNull=false
+foreign=true
+# --field-end--
+# --field-start--
+fieldName=myUUID
+canBeNull=false
+id=true
+unique=true
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=se.naresh.com.crickboard.Match
+tableName=OrmMatchTable
+# --table-fields-start--
+# --field-start--
+fieldName=team1
+columnName=team1UUID
+canBeNull=false
+foreign=true
+# --field-end--
+# --field-start--
+fieldName=team2
+columnName=team2UUID
+canBeNull=false
+foreign=true
+# --field-end--
+# --field-start--
+fieldName=season
+columnName=seasonUUID
+foreign=true
+useGetSet=true
+# --field-end--
+# --field-start--
+fieldName=matchDate
+dataPersister=DATE_STRING
+# --field-end--
+# --field-start--
+fieldName=myUUID
+canBeNull=false
+id=true
+unique=true
+# --field-end--
+# --field-start--
+fieldName=tossWon
+useGetSet=true
+# --field-end--
+# --field-start--
+fieldName=teamDecision
+useGetSet=true
+# --field-end--
+# --field-start--
+fieldName=team1UUID
+# --field-end--
+# --field-start--
+fieldName=team2UUID
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=se.naresh.com.crickboard.Ball
+tableName=OrmBallTable
+# --table-fields-start--
+# --field-start--
+fieldName=myUUID
+canBeNull=false
+id=true
+unique=true
+# --field-end--
+# --field-start--
+fieldName=isWide
+# --field-end--
+# --field-start--
+fieldName=isNoBall
+# --field-end--
+# --field-start--
+fieldName=runsOnThisBall
+# --field-end--
+# --field-start--
+fieldName=isValidBall
+# --field-end--
+# --field-start--
+fieldName=wicketTaken
+# --field-end--
+# --field-start--
+fieldName=isDeadBall
+# --field-end--
+# --field-start--
+fieldName=ballSeqNumber
+# --field-end--
+# --field-start--
+fieldName=bowledBy
+columnName=ballerUUID
+canBeNull=false
+foreign=true
+# --field-end--
+# --field-start--
+fieldName=battedBy
+columnName=batsmanUUID
+foreign=true
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################

@@ -31,6 +31,16 @@ public class Season {
     private UUID myUUID = null;
     public UUID getMyUUID() { return myUUID; }
 
+    @DatabaseField(useGetSet = true)
+    private String name;
+    public void setName(String aName) { name = aName; }
+    public String getName() { return name; }
+
+    @DatabaseField(useGetSet = true)
+    private String year;
+    public void setYear(String aYear) { year = aYear; }
+    public String getYear() { return year; }
+
     @ForeignCollectionField(eager = true)
     private ForeignCollection<Match> seasonMatches;
 
