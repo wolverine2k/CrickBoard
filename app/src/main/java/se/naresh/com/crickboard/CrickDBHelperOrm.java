@@ -43,9 +43,11 @@ public class CrickDBHelperOrm extends OrmLiteSqliteOpenHelper {
     private Dao<Over, String> overTableDao = null;
     private Dao<Match, String> matchTableDao = null;
     private Dao<MatchPlayers, String> matchPlayersTableDao = null;
+    private Dao<Season, String> seasonTableDao = null;
 
-    public CrickDBHelperOrm(Context context, String databaseName, SQLiteDatabase.CursorFactory factory, int databaseVersion) {
-        super(context, databaseName, factory, databaseVersion);
+    public CrickDBHelperOrm(Context context) {
+        //super(context, databaseName, factory, databaseVersion);
+        super(context, DB_NAME, null, DB_VERSION);
     }
 
     @Override
@@ -56,13 +58,28 @@ public class CrickDBHelperOrm extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(connectionSource, Wicket.class);
             TableUtils.createTable(connectionSource, Over.class);
             TableUtils.createTable(connectionSource, Team.class);
+            TableUtils.createTable(connectionSource, Season.class);
             TableUtils.createTable(connectionSource, Match.class);
             TableUtils.createTable(connectionSource, MatchPlayers.class);
+            Log.d(LOG_TAG, "DBTables created Successfully...");
         } catch (SQLException e) {
             Log.e(LOG_TAG, "Error while creating database tables " + e.getMessage());
             e.printStackTrace();
             throw new RuntimeException(e);
         }
+    }
+
+    public Dao<Season, String> getSeasonTableDao() {
+        if(null == seasonTableDao) {
+            try {
+                seasonTableDao = getDao(Season.class);
+            } catch (SQLException e) {
+                Log.e(LOG_TAG, "Error while getting SeasonDao" + e.getMessage());
+                e.printStackTrace();
+                throw new RuntimeException(e);
+            }
+        }
+        return seasonTableDao;
     }
 
     public Dao<MatchPlayers, String> getMatchPlayersTableDao() {
@@ -161,5 +178,6 @@ public class CrickDBHelperOrm extends OrmLiteSqliteOpenHelper {
         /* TODO: On a DB Upgrade, check the version and provide for utility
         * copy functions that creates new database, copies data from old and
         * removes the old database... NOT USED FOR THE TIME BEING */
+        Log.d(LOG_TAG, "onUpgrade being called...");
     }
 }

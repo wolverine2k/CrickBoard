@@ -39,6 +39,11 @@ public class Match {
     @DatabaseField (foreign = true, canBeNull = false, columnName = "team2UUID")
     private Team team2 = null;
 
+    @DatabaseField (foreign = true, canBeNull = true, columnName = "seasonUUID", useGetSet = true)
+    private Season season = null;
+    public void setSeason(Season aSeason) { season = aSeason; }
+    public Season getSeason() { return season; }
+
     @DatabaseField (dataType = DataType.DATE_STRING)
     public Date matchDate = null;
 
