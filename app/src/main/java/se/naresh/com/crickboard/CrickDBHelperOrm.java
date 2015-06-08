@@ -18,6 +18,7 @@
  */
 package se.naresh.com.crickboard;
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
@@ -38,6 +39,10 @@ public class CrickDBHelperOrm extends OrmLiteSqliteOpenHelper {
     private Dao<Player, String> playerTableDao = null;
     private Dao<Ball, String> ballTableDao = null;
     private Dao<Wicket, String> wicketTableDao = null;
+    private Dao<Team, String> teamTableDao = null;
+    private Dao<Over, String> overTableDao = null;
+    private Dao<Match, String> matchTableDao = null;
+    private Dao<MatchPlayers, String> matchPlayersTableDao = null;
 
     public CrickDBHelperOrm(Context context, String databaseName, SQLiteDatabase.CursorFactory factory, int databaseVersion) {
         super(context, databaseName, factory, databaseVersion);
@@ -49,11 +54,67 @@ public class CrickDBHelperOrm extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(connectionSource, Player.class);
             TableUtils.createTable(connectionSource, Ball.class);
             TableUtils.createTable(connectionSource, Wicket.class);
+            TableUtils.createTable(connectionSource, Over.class);
+            TableUtils.createTable(connectionSource, Team.class);
+            TableUtils.createTable(connectionSource, Match.class);
+            TableUtils.createTable(connectionSource, MatchPlayers.class);
         } catch (SQLException e) {
             Log.e(LOG_TAG, "Error while creating database tables " + e.getMessage());
             e.printStackTrace();
             throw new RuntimeException(e);
         }
+    }
+
+    public Dao<MatchPlayers, String> getMatchPlayersTableDao() {
+        if(null == matchPlayersTableDao) {
+            try {
+                matchPlayersTableDao = getDao(MatchPlayers.class);
+            } catch (SQLException e) {
+                Log.e(LOG_TAG, "Error while getting MatchPlayersDao" + e.getMessage());
+                e.printStackTrace();
+                throw new RuntimeException(e);
+            }
+        }
+        return matchPlayersTableDao;
+    }
+
+    public Dao<Match, String> getMatchTableDao() {
+        if(null == matchTableDao) {
+            try {
+                matchTableDao = getDao(Match.class);
+            } catch (SQLException e) {
+                Log.e(LOG_TAG, "Error while getting MatchDao" + e.getMessage());
+                e.printStackTrace();
+                throw new RuntimeException(e);
+            }
+        }
+        return matchTableDao;
+    }
+
+    public Dao<Over, String> getOverTableDao() {
+        if(null == overTableDao) {
+            try {
+                overTableDao = getDao(Over.class);
+            } catch (SQLException e) {
+                Log.e(LOG_TAG, "Error while getting OverDao" + e.getMessage());
+                e.printStackTrace();
+                throw new RuntimeException(e);
+            }
+        }
+        return overTableDao;
+    }
+
+    public Dao<Team, String> getTeamTableDao() {
+        if(null == teamTableDao) {
+            try {
+                teamTableDao = getDao(Team.class);
+            } catch (SQLException e) {
+                Log.e(LOG_TAG, "Error while getting TeamDao" + e.getMessage());
+                e.printStackTrace();
+                throw new RuntimeException(e);
+            }
+        }
+        return teamTableDao;
     }
 
     public Dao<Wicket, String> getWicketTableDao() {
