@@ -62,4 +62,7 @@ public class MainActivity extends ActionBarActivity {
         this.finish();
         System.exit(0);
     }
+
+    public void onSeasonViewerButtonClicked(View v) {
+    }
 }

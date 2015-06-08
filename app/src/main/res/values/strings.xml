@@ -5,6 +5,7 @@
     <string name="new_cric_board">New Cricket Score Board</string>
     <string name="load_prev_cric_board">Load Previous Cricket Score Board</string>
     <string name="launch_team_manager">Launch Team Manager</string>
+    <string name="launch_season_viewer">Launch Season Viewer</string>
     <string name="tbd">...TBD...</string>
     <string name="exit_app">Exit</string>
     <string name="action_settings">Settings</string>

@@ -30,6 +30,8 @@ import com.j256.ormlite.table.TableUtils;
 
 import java.sql.SQLException;
 
+import se.naresh.com.crickboard.R;
+
 public class CrickDBHelperOrm extends OrmLiteSqliteOpenHelper {
     private static final String LOG_TAG = CrickDBHelper.class.getName();
     /* No downgrade possible on this SW for the moment */
@@ -48,6 +50,7 @@ public class CrickDBHelperOrm extends OrmLiteSqliteOpenHelper {
     public CrickDBHelperOrm(Context context) {
         //super(context, databaseName, factory, databaseVersion);
         super(context, DB_NAME, null, DB_VERSION);
+        /* TODO: Add the input stream to the CrickDBConfigUtil filename */
     }
 
     @Override
@@ -179,5 +182,22 @@ public class CrickDBHelperOrm extends OrmLiteSqliteOpenHelper {
         * copy functions that creates new database, copies data from old and
         * removes the old database... NOT USED FOR THE TIME BEING */
         Log.d(LOG_TAG, "onUpgrade being called...");
+        try {
+            TableUtils.dropTable(connectionSource, Player.class, true);
+            TableUtils.dropTable(connectionSource, Ball.class, true);
+            TableUtils.dropTable(connectionSource, Wicket.class, true);
+            TableUtils.dropTable(connectionSource, Over.class, true);
+            TableUtils.dropTable(connectionSource, Team.class, true);
+            TableUtils.dropTable(connectionSource, Season.class, true);
+            TableUtils.dropTable(connectionSource, Match.class, true);
+            TableUtils.dropTable(connectionSource, MatchPlayers.class, true);
+            Log.d(LOG_TAG, "DBTables Dropped Successfully. DataBackup NOT DONE...");
+            onCreate(database, connectionSource);
+        } catch (SQLException e) {
+            Log.e(LOG_TAG, "Unable to upgrade database from version " + oldVersion + " to new "
+                    + newVersion + e.getMessage());
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
     }
 }

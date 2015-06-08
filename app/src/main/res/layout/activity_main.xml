@@ -42,6 +42,15 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="@string/launch_season_viewer"
+                android:id="@+id/launchSeasonViewer"
+                android:layout_gravity="center_horizontal"
+                android:clickable="true"
+                android:onClick="onSeasonViewerButtonClicked" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:text="@string/tbd"
                 android:id="@+id/TBD"
                 android:layout_gravity="center_horizontal" />
