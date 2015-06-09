@@ -32,7 +32,6 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        CrickDBHelperOrm db = new CrickDBHelperOrm(this);
         Log.d(LOG_TAG, "MainActivity Started...");
     }
 
