@@ -20,6 +20,7 @@ package se.naresh.com.crickboard;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -35,7 +36,7 @@ import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends AppCompatActivity {
     private static final String LOG_TAG = MainActivity.class.getName();
     private Drawer navigationDrawer = null;
     private Toolbar toolbar = null;
@@ -47,16 +48,19 @@ public class MainActivity extends ActionBarActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        if(navigationDrawer != null) {
+        if(navigationDrawer == null) {
             navigationDrawer = new DrawerBuilder().withActivity(this).withToolbar(toolbar)
                     .addDrawerItems(new PrimaryDrawerItem().withName(R.string.app_name),
                             new DividerDrawerItem(), new SecondaryDrawerItem().withName(R.string.load_prev_cric_board))
                     .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
-                @Override
-                public boolean onItemClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem) {
-                    return true;
-                }
-            }).build();
+                        @Override
+                        public boolean onItemClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem) {
+                            return false;
+                        }
+                    })
+            .withSavedInstance(savedInstanceState)
+            .withShowDrawerOnFirstLaunch(true)
+            .build();
         }
         Log.d(LOG_TAG, "MainActivity Started...");
     }
