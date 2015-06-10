@@ -18,7 +18,6 @@
  */
 package se.naresh.com.crickboard;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -50,11 +49,39 @@ public class MainActivity extends AppCompatActivity {
 
         if(navigationDrawer == null) {
             navigationDrawer = new DrawerBuilder().withActivity(this).withToolbar(toolbar)
-                    .addDrawerItems(new PrimaryDrawerItem().withName(R.string.app_name),
-                            new DividerDrawerItem(), new SecondaryDrawerItem().withName(R.string.load_prev_cric_board))
+                    .addDrawerItems(
+                        new PrimaryDrawerItem().withName(R.string.new_cric_board),
+                        new DividerDrawerItem(),
+                        new PrimaryDrawerItem().withName(R.string.load_prev_cric_board),
+                        new PrimaryDrawerItem().withName(R.string.launch_team_manager),
+                        new PrimaryDrawerItem().withName(R.string.tbd),
+                        new PrimaryDrawerItem().withName(R.string.exit_app)
+                    )
                     .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                         @Override
                         public boolean onItemClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem) {
+                            if(drawerItem != null) {
+                                Log.d(LOG_TAG, "ItemID is: " + drawerItem.getIdentifier() + "Position:" + position);
+
+                                switch (position) {
+                                    case 0:
+                                        /* TODO: Fill up code to show new crickBoard */
+                                        break;
+                                    /* Case1: is a DividerDrawItem() which will never will clicked */
+                                    case 2:
+                                        /* TODO: Load the previous crickBoard */
+                                        break;
+                                    case 3:
+                                        /* TODO: Load team manager stuff... */
+                                        break;
+                                    case 5:
+                                        /* Exit the Application... */
+                                        onExitButtonClicked(view);
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
                             return false;
                         }
                     })
@@ -90,8 +117,5 @@ public class MainActivity extends AppCompatActivity {
     public void onExitButtonClicked(View v) {
         this.finish();
         System.exit(0);
-    }
-
-    public void onSeasonViewerButtonClicked(View v) {
     }
 }
