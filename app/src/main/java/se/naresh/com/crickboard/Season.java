@@ -18,11 +18,18 @@
  */
 package se.naresh.com.crickboard;
 
+import android.content.Context;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+
 import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import java.lang.reflect.Array;
+import java.util.List;
 import java.util.UUID;
 
 @DatabaseTable(tableName = "OrmSeasonTable")
@@ -30,6 +37,10 @@ public class Season {
     @DatabaseField(id = true, canBeNull = false, unique = true)
     private UUID myUUID = null;
     public UUID getMyUUID() { return myUUID; }
+
+    @DatabaseField(generatedId = true)
+    private Integer generatedID;
+    public Integer getGeneratedID() { return generatedID; }
 
     @DatabaseField(useGetSet = true)
     private String name;
@@ -46,4 +57,22 @@ public class Season {
 
     /* No argument constructor needed by OrmLite... */
     Season() {  }
+
+    public class SeasonsListAdapter extends ArrayAdapter<Season> {
+
+        public SeasonsListAdapter(Context context, int resource) {
+            super(context, resource);
+        }
+
+        public SeasonsListAdapter(Context context, int resource, List<Season> seasons) {
+            super(context, resource, seasons);
+        }
+
+        @Override
+
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View v = convertView;
+            return v;
+        }
+    }
 }

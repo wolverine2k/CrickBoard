@@ -26,7 +26,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ListView;
 
+import com.dexafree.materialList.cards.SmallImageCard;
+import com.dexafree.materialList.controller.RecyclerItemClickListener;
+import com.dexafree.materialList.model.CardItemView;
+import com.dexafree.materialList.view.MaterialListView;
+import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
@@ -34,11 +40,19 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
+import java.sql.SQLException;
+import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity {
     private static final String LOG_TAG = MainActivity.class.getName();
     private Drawer navigationDrawer = null;
     private Toolbar toolbar = null;
+    private MaterialListView seasonsList = null;
+
+    private class SeasonsConfig extends OrmLiteBaseActivity<CrickDBHelperOrm> {
+
+    }
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,15 +61,36 @@ public class MainActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        seasonsList = (MaterialListView) findViewById(R.id.seasonsListView);
+        SmallImageCard card = new SmallImageCard(this);
+        card.setDescription("Test Card");
+        card.setTitle("Test Card Title... ");
+        card.setDrawable(R.drawable.ic_launcher);
+
+        seasonsList.add(card);
+        seasonsList.addOnItemTouchListener(new RecyclerItemClickListener.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(CardItemView view, int position) {
+                Log.d(LOG_TAG, "CARD_TYPE clicked" + position);
+            }
+
+            @Override
+            public void onItemLongClick(CardItemView view, int position) {
+                Log.d(LOG_TAG, "LONG_CLICK on Card" + position);
+            }
+        });
+
         if(navigationDrawer == null) {
+            /* TODO: Add icons to each of the Drawer item... */
             navigationDrawer = new DrawerBuilder().withActivity(this).withToolbar(toolbar)
                     .addDrawerItems(
-                        new PrimaryDrawerItem().withName(R.string.new_cric_board),
+                        new PrimaryDrawerItem().withDescription(R.string.new_cric_board),
                         new DividerDrawerItem(),
-                        new PrimaryDrawerItem().withName(R.string.load_prev_cric_board),
+                        new PrimaryDrawerItem().withDescription(R.string.load_prev_cric_board),
                         new PrimaryDrawerItem().withName(R.string.launch_team_manager),
                         new PrimaryDrawerItem().withName(R.string.tbd),
-                        new PrimaryDrawerItem().withName(R.string.exit_app)
+                        new PrimaryDrawerItem().withDescription(R.string.exit_app)
                     )
                     .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                         @Override
@@ -87,9 +122,13 @@ public class MainActivity extends AppCompatActivity {
                     })
             .withSavedInstance(savedInstanceState)
             .withShowDrawerOnFirstLaunch(true)
-            .build();
+                    .build();
         }
         Log.d(LOG_TAG, "MainActivity Started...");
+    }
+
+    private void fillSeasonsList() throws SQLException {
+
     }
 
     @Override

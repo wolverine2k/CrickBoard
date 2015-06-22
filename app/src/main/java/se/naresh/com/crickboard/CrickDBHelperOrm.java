@@ -47,7 +47,18 @@ public class CrickDBHelperOrm extends OrmLiteSqliteOpenHelper {
     private Dao<MatchPlayers, String> matchPlayersTableDao = null;
     private Dao<Season, String> seasonTableDao = null;
 
-    public CrickDBHelperOrm(Context context) {
+    static private CrickDBHelperOrm instance;
+    static public void init(Context context) {
+        if(null == instance) {
+            instance = new CrickDBHelperOrm(context);
+        }
+    }
+
+    static public CrickDBHelperOrm getInstance() {
+        return instance;
+    }
+
+    private CrickDBHelperOrm(Context context) {
         //super(context, databaseName, factory, databaseVersion);
         super(context, DB_NAME, null, DB_VERSION, R.raw.crickdb_ormconfig);
     }
