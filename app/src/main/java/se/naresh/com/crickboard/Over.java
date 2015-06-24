@@ -32,7 +32,7 @@ public class Over {
     private UUID myUUID = null;
     public UUID getMyUUID() { return myUUID; }
 
-    @ForeignCollectionField
+    @ForeignCollectionField(eager = true, columnName = "ballUUID")
     private ForeignCollection<Ball> ballsInOver;
 
     @DatabaseField

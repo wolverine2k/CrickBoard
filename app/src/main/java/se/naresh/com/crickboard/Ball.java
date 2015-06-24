@@ -55,6 +55,9 @@ public class Ball {
     @DatabaseField(foreign = true, canBeNull = false, columnName = "ballerUUID")
     public Player bowledBy;
 
+    @DatabaseField(foreign = true, canBeNull = false, columnName = "overUUID")
+    public Over over;
+
     /* Runs can be scored by a noBall/wide, etc. Hence the player can be NULL
     * TODO: Confirm with cricketers for a NULL possibility for player...
     * */

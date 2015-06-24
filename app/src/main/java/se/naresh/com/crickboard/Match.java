@@ -98,5 +98,5 @@ public class Match {
     }
 
     /* No argument constructor needed by OrmLite... */
-    Match() {  }
+    Match() { myUUID = Utility.generateUUID(); }
 }

@@ -1,5 +1,5 @@
 #
-# generated on 2015/06/08 07:31:59
+# generated on 2015/06/24 09:47:35
 #
 # --table-start--
 dataClass=se.naresh.com.crickboard.Player
@@ -121,7 +121,11 @@ useGetSet=true
 # --field-start--
 fieldName=seasonMatches
 foreignCollection=true
-foreignCollectionEager=true
+# --field-end--
+# --field-start--
+fieldName=pngImage
+dataPersister=BYTE_ARRAY
+useGetSet=true
 # --field-end--
 # --table-fields-end--
 # --table-end--
@@ -138,7 +142,10 @@ unique=true
 # --field-end--
 # --field-start--
 fieldName=ballsInOver
+columnName=ballUUID
 foreignCollection=true
+foreignCollectionEager=true
+foreignCollectionColumnName=ballUUID
 # --field-end--
 # --field-start--
 fieldName=overSeqNumber
@@ -259,6 +266,12 @@ fieldName=ballSeqNumber
 # --field-start--
 fieldName=bowledBy
 columnName=ballerUUID
+canBeNull=false
+foreign=true
+# --field-end--
+# --field-start--
+fieldName=over
+columnName=overUUID
 canBeNull=false
 foreign=true
 # --field-end--

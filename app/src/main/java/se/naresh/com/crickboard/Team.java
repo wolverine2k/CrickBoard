@@ -65,5 +65,5 @@ public class Team {
     private MatchPlayers matchPlayers;
 
     /* No argument constructor needed by OrmLite... */
-    Team() {  }
+    Team() { myUUID = Utility.generateUUID(); }
 }

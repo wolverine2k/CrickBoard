@@ -26,9 +26,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ListView;
-
 import com.dexafree.materialList.cards.SmallImageCard;
+import com.dexafree.materialList.cards.WelcomeCard;
 import com.dexafree.materialList.controller.RecyclerItemClickListener;
 import com.dexafree.materialList.model.CardItemView;
 import com.dexafree.materialList.view.MaterialListView;
@@ -37,7 +36,6 @@ import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
-import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
 import java.sql.SQLException;
@@ -48,27 +46,24 @@ public class MainActivity extends AppCompatActivity {
     private static final String LOG_TAG = MainActivity.class.getName();
     private Drawer navigationDrawer = null;
     private Toolbar toolbar = null;
-    private MaterialListView seasonsList = null;
-
-    private class SeasonsConfig extends OrmLiteBaseActivity<CrickDBHelperOrm> {
-
-    }
+    private MaterialListView seasonsListView = null;
+    private Season seasonDb = null;
+    private CrickDBHelperOrm dbHelper = null;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        CrickDBHelperOrm.init(this);
+        dbHelper = CrickDBHelperOrm.getInstance();
+        seasonDb = new Season();
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        seasonsList = (MaterialListView) findViewById(R.id.seasonsListView);
-        SmallImageCard card = new SmallImageCard(this);
-        card.setDescription("Test Card");
-        card.setTitle("Test Card Title... ");
-        card.setDrawable(R.drawable.ic_launcher);
-
-        seasonsList.add(card);
-        seasonsList.addOnItemTouchListener(new RecyclerItemClickListener.OnItemClickListener() {
+        seasonsListView = (MaterialListView) findViewById(R.id.seasonsListView);
+        fillSeasonsList();
+        seasonsListView.addOnItemTouchListener(new RecyclerItemClickListener.OnItemClickListener() {
 
             @Override
             public void onItemClick(CardItemView view, int position) {
@@ -85,12 +80,12 @@ public class MainActivity extends AppCompatActivity {
             /* TODO: Add icons to each of the Drawer item... */
             navigationDrawer = new DrawerBuilder().withActivity(this).withToolbar(toolbar)
                     .addDrawerItems(
-                        new PrimaryDrawerItem().withDescription(R.string.new_cric_board),
-                        new DividerDrawerItem(),
-                        new PrimaryDrawerItem().withDescription(R.string.load_prev_cric_board),
-                        new PrimaryDrawerItem().withName(R.string.launch_team_manager),
-                        new PrimaryDrawerItem().withName(R.string.tbd),
-                        new PrimaryDrawerItem().withDescription(R.string.exit_app)
+                            new PrimaryDrawerItem().withDescription(R.string.new_cric_board),
+                            new DividerDrawerItem(),
+                            new PrimaryDrawerItem().withDescription(R.string.load_prev_cric_board),
+                            new PrimaryDrawerItem().withName(R.string.launch_team_manager),
+                            new PrimaryDrawerItem().withName(R.string.tbd),
+                            new PrimaryDrawerItem().withDescription(R.string.exit_app)
                     )
                     .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                         @Override
@@ -120,15 +115,30 @@ public class MainActivity extends AppCompatActivity {
                             return false;
                         }
                     })
-            .withSavedInstance(savedInstanceState)
-            .withShowDrawerOnFirstLaunch(true)
+                    .withSavedInstance(savedInstanceState)
+                    .withShowDrawerOnFirstLaunch(true)
                     .build();
         }
         Log.d(LOG_TAG, "MainActivity Started...");
     }
 
-    private void fillSeasonsList() throws SQLException {
-
+    private void fillSeasonsList() {
+        List<Season> seasons = seasonDb.getAllSeasons();
+        if(seasons.size() == 0) {
+            WelcomeCard card = new WelcomeCard(this);
+            card.setTitle("No Seasons Played YET!");
+            card.setDescription("No Seasons Played YET! Right Swipe to DISMISS ME!");
+            card.setDrawable(R.drawable.ic_launcher);
+            card.setDismissible(true);
+            seasonsListView.add(card);
+        } else {
+            for(Season season : seasons) {
+                SmallImageCard card = new SmallImageCard(this);
+                card.setTitle("Name: " + season.getName() + " Year: " + season.getYear());
+                card.setDescription("Matches Played: " + season.getNumberOfMatches());
+                seasonsListView.add(card);
+            }
+        }
     }
 
     @Override
@@ -156,5 +166,11 @@ public class MainActivity extends AppCompatActivity {
     public void onExitButtonClicked(View v) {
         this.finish();
         System.exit(0);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        dbHelper.close();
     }
 }

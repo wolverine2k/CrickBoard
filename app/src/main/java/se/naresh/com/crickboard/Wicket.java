@@ -43,4 +43,7 @@ public class Wicket {
     private Player caughtPlayer = null;
     public Player getCaughtPlayer() { return caughtPlayer; }
     public void setCaughtPlayer(Player aCaughtPlayer) { caughtPlayer = aCaughtPlayer; }
+
+    /* No argument constructor needed by OrmLite... */
+    Wicket() { myUUID = Utility.generateUUID();  }
 }

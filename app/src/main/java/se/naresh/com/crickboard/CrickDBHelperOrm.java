@@ -47,11 +47,16 @@ public class CrickDBHelperOrm extends OrmLiteSqliteOpenHelper {
     private Dao<MatchPlayers, String> matchPlayersTableDao = null;
     private Dao<Season, String> seasonTableDao = null;
 
-    static private CrickDBHelperOrm instance;
+    static private CrickDBHelperOrm instance = null;
     static public void init(Context context) {
         if(null == instance) {
             instance = new CrickDBHelperOrm(context);
         }
+    }
+
+    @Override
+    public void close() {
+        super.close();
     }
 
     static public CrickDBHelperOrm getInstance() {
@@ -61,6 +66,10 @@ public class CrickDBHelperOrm extends OrmLiteSqliteOpenHelper {
     private CrickDBHelperOrm(Context context) {
         //super(context, databaseName, factory, databaseVersion);
         super(context, DB_NAME, null, DB_VERSION, R.raw.crickdb_ormconfig);
+    }
+
+    private void insertDummyDataInTables() {
+        /* TODO: Write code to insert dummy data in the tables */
     }
 
     @Override
@@ -75,6 +84,11 @@ public class CrickDBHelperOrm extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(connectionSource, Match.class);
             TableUtils.createTable(connectionSource, MatchPlayers.class);
             Log.d(LOG_TAG, "DBTables created Successfully...");
+
+            /* Now that the DBTables are created, insert some dummy data
+            * to start with... */
+            insertDummyDataInTables();
+            Log.d(LOG_TAG, "DummyData inserted successfully...");
         } catch (SQLException e) {
             Log.e(LOG_TAG, "Error while creating database tables " + e.getMessage());
             e.printStackTrace();

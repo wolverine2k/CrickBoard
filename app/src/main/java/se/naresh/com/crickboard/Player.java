@@ -72,7 +72,7 @@ public class Player {
     private Boolean foundInDB = false;
 
     /* No argument constructor needed by OrmLite... */
-    Player() { }
+    Player() { myUUID = Utility.generateUUID(); }
 
 
 }
