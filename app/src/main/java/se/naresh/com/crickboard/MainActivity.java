@@ -126,9 +126,10 @@ public class MainActivity extends AppCompatActivity {
         List<Season> seasons = seasonDb.getAllSeasons();
         if(seasons.size() == 0) {
             WelcomeCard card = new WelcomeCard(this);
-            card.setTitle("No Seasons Played YET!");
-            card.setDescription("No Seasons Played YET! Right Swipe to DISMISS ME!");
-            card.setDrawable(R.drawable.ic_launcher);
+            card.setTitle(R.string.welcome_crickboard);
+            card.setDescription(R.string.swipe_2_dismiss);
+            card.setSubtitle(R.string.no_seasons);
+            card.setSubtitleColor("red");
             card.setDismissible(true);
             seasonsListView.add(card);
         } else {

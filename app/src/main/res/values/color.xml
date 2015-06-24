@@ -13,4 +13,11 @@
     <!-- overwrite the selected colors because the primary color is to dark -->
     <color name="material_drawer_selected_text">#536EEA</color>
     <color name="material_drawer_dark_selected_text">#536EEA</color>
+
+    <color name="grey_title">#626262</color>
+    <color name="description_color">#878787</color>
+    <color name="orange_button">#FD9B32</color>
+    <color name="black_button">#3C3C3C</color>
+    <color name="divider_grey">#D4D4D4</color>
+    <color name="divider_white">#608DFA</color>
 </resources>

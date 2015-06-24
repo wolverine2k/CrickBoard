@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">CrickBoard</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="welcome_crickboard">Welcome To CrickBoard!</string>
+    <string name="swipe_2_dismiss">Swipe to DISMISS ME!</string>
+    <string name="no_seasons">No Seasons Played YET!</string>
 
     <string name="new_cric_board">New Cricket Score Board</string>
     <string name="load_prev_cric_board">Load Previous Cricket Score Board</string>
