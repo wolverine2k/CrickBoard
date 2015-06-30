@@ -1,5 +1,5 @@
 #
-# generated on 2015/06/24 09:47:35
+# generated on 2015/06/30 12:47:24
 #
 # --table-start--
 dataClass=se.naresh.com.crickboard.Player
@@ -30,6 +30,10 @@ fieldName=myUUID
 canBeNull=false
 id=true
 unique=true
+# --field-end--
+# --field-start--
+fieldName=teamsBelongingTo
+foreignCollection=true
 # --field-end--
 # --table-fields-end--
 # --table-end--
@@ -97,6 +101,15 @@ canBeNull=false
 id=true
 unique=true
 # --field-end--
+# --field-start--
+fieldName=player
+columnName=playerUUID
+foreign=true
+# --field-end--
+# --field-start--
+fieldName=matches
+foreignCollection=true
+# --field-end--
 # --table-fields-end--
 # --table-end--
 #################################
@@ -154,36 +167,6 @@ fieldName=overSeqNumber
 # --table-end--
 #################################
 # --table-start--
-dataClass=se.naresh.com.crickboard.MatchPlayers
-tableName=OrmMatchPlayersTable
-# --table-fields-start--
-# --field-start--
-fieldName=matchPlayers
-foreignCollection=true
-foreignCollectionEager=true
-# --field-end--
-# --field-start--
-fieldName=match
-columnName=matchUUID
-canBeNull=false
-foreign=true
-# --field-end--
-# --field-start--
-fieldName=team
-columnName=teamUUID
-canBeNull=false
-foreign=true
-# --field-end--
-# --field-start--
-fieldName=myUUID
-canBeNull=false
-id=true
-unique=true
-# --field-end--
-# --table-fields-end--
-# --table-end--
-#################################
-# --table-start--
 dataClass=se.naresh.com.crickboard.Match
 tableName=OrmMatchTable
 # --table-fields-start--
@@ -222,12 +205,6 @@ useGetSet=true
 # --field-start--
 fieldName=teamDecision
 useGetSet=true
-# --field-end--
-# --field-start--
-fieldName=team1UUID
-# --field-end--
-# --field-start--
-fieldName=team2UUID
 # --field-end--
 # --table-fields-end--
 # --table-end--

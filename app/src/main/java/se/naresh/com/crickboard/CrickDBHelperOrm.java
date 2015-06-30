@@ -37,6 +37,8 @@ public class CrickDBHelperOrm extends OrmLiteSqliteOpenHelper {
     /* No downgrade possible on this SW for the moment */
     private static final int DB_VERSION = 1;
     private static final String DB_NAME = "CrickBoard.sqlite";
+    private static final Integer NO_OF_DUMMYDATA = 2;
+    private static final Integer NO_OF_PLAYERS = 12;
 
     private Dao<Player, String> playerTableDao = null;
     private Dao<Ball, String> ballTableDao = null;
@@ -44,7 +46,6 @@ public class CrickDBHelperOrm extends OrmLiteSqliteOpenHelper {
     private Dao<Team, String> teamTableDao = null;
     private Dao<Over, String> overTableDao = null;
     private Dao<Match, String> matchTableDao = null;
-    private Dao<MatchPlayers, String> matchPlayersTableDao = null;
     private Dao<Season, String> seasonTableDao = null;
 
     static private CrickDBHelperOrm instance = null;
@@ -68,8 +69,42 @@ public class CrickDBHelperOrm extends OrmLiteSqliteOpenHelper {
         super(context, DB_NAME, null, DB_VERSION, R.raw.crickdb_ormconfig);
     }
 
-    private void insertDummyDataInTables() {
+    private void createDummyPlayers() throws SQLException {
+        for(int i = 0; i < NO_OF_PLAYERS; ++i) {
+            Player player = new Player();
+            player.setName("DummyPlayer" + Integer.toString(i));
+            playerTableDao.createOrUpdate(player);
+        }
+    }
+
+    private void initializeAllDAOs() {
+        getBallTableDao();
+        getMatchTableDao();
+        getOverTableDao();
+        getPlayerTableDao();
+        getSeasonTableDao();
+        getWicketTableDao();
+        getTeamTableDao();
+    }
+
+    private void insertDummyDataInTables() throws SQLException {
+        initializeAllDAOs();
         /* TODO: Write code to insert dummy data in the tables */
+        createDummyPlayers();
+        for(int i = 0; i < NO_OF_DUMMYDATA; ++i) {
+            Team team = new Team();
+            team.setName("TestTeam" + Integer.toString(i));
+            teamTableDao.createOrUpdate(team);
+
+            Match match = new Match();
+            match.setTeam1(team);
+            match.setTeam2(team);
+            matchTableDao.createOrUpdate(match);
+
+            Season season = new Season();
+            season.setName("TestSeason");
+            seasonTableDao.createOrUpdate(season);
+        }
     }
 
     @Override
@@ -82,7 +117,6 @@ public class CrickDBHelperOrm extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(connectionSource, Team.class);
             TableUtils.createTable(connectionSource, Season.class);
             TableUtils.createTable(connectionSource, Match.class);
-            TableUtils.createTable(connectionSource, MatchPlayers.class);
             Log.d(LOG_TAG, "DBTables created Successfully...");
 
             /* Now that the DBTables are created, insert some dummy data
@@ -107,19 +141,6 @@ public class CrickDBHelperOrm extends OrmLiteSqliteOpenHelper {
             }
         }
         return seasonTableDao;
-    }
-
-    public Dao<MatchPlayers, String> getMatchPlayersTableDao() {
-        if(null == matchPlayersTableDao) {
-            try {
-                matchPlayersTableDao = getDao(MatchPlayers.class);
-            } catch (SQLException e) {
-                Log.e(LOG_TAG, "Error while getting MatchPlayersDao" + e.getMessage());
-                e.printStackTrace();
-                throw new RuntimeException(e);
-            }
-        }
-        return matchPlayersTableDao;
     }
 
     public Dao<Match, String> getMatchTableDao() {

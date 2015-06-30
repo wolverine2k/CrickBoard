@@ -23,12 +23,13 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import java.util.List;
 import java.util.UUID;
 
 @DatabaseTable(tableName = "OrmMatchPlayersTable")
 public class MatchPlayers {
 
-    @ForeignCollectionField(eager = true)
+    @ForeignCollectionField(eager = false)
     private ForeignCollection<Player> matchPlayers;
 
     @DatabaseField(foreign = true, canBeNull = false, columnName = "matchUUID")

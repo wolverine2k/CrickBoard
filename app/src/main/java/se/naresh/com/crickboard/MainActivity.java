@@ -28,7 +28,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import com.dexafree.materialList.cards.SmallImageCard;
 import com.dexafree.materialList.cards.WelcomeCard;
+import com.dexafree.materialList.controller.OnDismissCallback;
 import com.dexafree.materialList.controller.RecyclerItemClickListener;
+import com.dexafree.materialList.model.Card;
 import com.dexafree.materialList.model.CardItemView;
 import com.dexafree.materialList.view.MaterialListView;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
@@ -49,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     private MaterialListView seasonsListView = null;
     private Season seasonDb = null;
     private CrickDBHelperOrm dbHelper = null;
+    private List<Season> seasons = null;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(CardItemView view, int position) {
                 Log.d(LOG_TAG, "CARD_TYPE clicked" + position);
+                doActionOnCardSelection(position);
             }
 
             @Override
@@ -75,6 +79,15 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(LOG_TAG, "LONG_CLICK on Card" + position);
             }
         });
+
+        seasonsListView.setOnDismissCallback(new OnDismissCallback() {
+            @Override
+            public void onDismiss(Card card, int position) {
+                Log.d(LOG_TAG, "Card dismissed!" + position);
+                doActionOnCardSelection(position);
+            }
+        });
+
 
         if(navigationDrawer == null) {
             /* TODO: Add icons to each of the Drawer item... */
@@ -122,8 +135,15 @@ public class MainActivity extends AppCompatActivity {
         Log.d(LOG_TAG, "MainActivity Started...");
     }
 
+    private void doActionOnCardSelection(int position) {
+        if(seasons.size() == 0) {
+            /* Means this is a welcome Card and we should now go to the SeasonsCreationView */
+        }
+
+    }
+
     private void fillSeasonsList() {
-        List<Season> seasons = seasonDb.getAllSeasons();
+        seasons = seasonDb.getAllSeasons();
         if(seasons.size() == 0) {
             WelcomeCard card = new WelcomeCard(this);
             card.setTitle(R.string.welcome_crickboard);

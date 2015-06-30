@@ -18,13 +18,22 @@
  */
 package se.naresh.com.crickboard;
 
+import android.util.Log;
+
+import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @DatabaseTable (tableName = "OrmPlayerTable")
 public class Player {
+    private static final String LOG_TAG = Player.class.getName();
+    private Dao<Player, String> playerTableDao = null;
 
     @DatabaseField (useGetSet = true)
     private String name;
@@ -34,7 +43,7 @@ public class Player {
     public void setName(String aName) { name = aName; }
 
     @DatabaseField (useGetSet = true)
-    private Integer age;
+    private Integer age = 20;
     public Integer getAge() { return age; }
     public void setAge(Integer aAge) { age = aAge; }
 
@@ -69,10 +78,36 @@ public class Player {
     private UUID myUUID = null;
     public UUID getMyUUID() { return myUUID; }
 
+    /* Points to different teams if the same player is included in different teams... */
+    @ForeignCollectionField(eager = false)
+    private ForeignCollection<Team> teamsBelongingTo;
+
     private Boolean foundInDB = false;
 
     /* No argument constructor needed by OrmLite... */
     Player() { myUUID = Utility.generateUUID(); }
 
+    private void setPlayerTableDao() {
+        if(null == playerTableDao) {
+            try {
+                playerTableDao = CrickDBHelperOrm.getInstance().getPlayerTableDao();
+            } catch (Exception e) {
+                Log.e(LOG_TAG, "Error getting handle... " + e.getMessage());
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public List<Player> getAllPlayers() {
+        setPlayerTableDao();
+        List<Player> playerList = new ArrayList<Player>();
+        try {
+            playerList = playerTableDao.queryForAll();
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "Error retrieving Players... " + e.getMessage());
+            e.printStackTrace();
+        }
+        return playerList;
+    }
 
 }

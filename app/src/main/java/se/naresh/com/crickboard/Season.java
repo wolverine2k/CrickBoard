@@ -93,4 +93,14 @@ public class Season {
         }
         return seasonList;
     }
+
+    public void insertDataIntoTable(Season season) {
+        setSeasonTableDao();
+        try {
+            seasonTableDao.createOrUpdate(season);
+        } catch (SQLException e) {
+            Log.e(LOG_TAG, "Unable to insert data into Season table... " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
 }

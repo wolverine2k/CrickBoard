@@ -18,8 +18,6 @@
  */
 package se.naresh.com.crickboard;
 
-import android.webkit.JavascriptInterface;
-
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -35,11 +33,13 @@ public class Match {
     /* Team1 vs Team2 as generic names */
     @DatabaseField (foreign = true, canBeNull = false, columnName = "team1UUID")
     private Team team1 = null;
+    public void setTeam1(Team team) { team1 = team; }
 
     @DatabaseField (foreign = true, canBeNull = false, columnName = "team2UUID")
     private Team team2 = null;
+    public void setTeam2(Team team) { team2 = team; }
 
-    @DatabaseField (foreign = true, canBeNull = true, columnName = "seasonUUID", useGetSet = true)
+    @DatabaseField (foreign = true, columnName = "seasonUUID")
     private Season season = null;
     public void setSeason(Season aSeason) { season = aSeason; }
     public Season getSeason() { return season; }
@@ -60,11 +60,6 @@ public class Match {
     private EDECSISON_TEAM teamDecision = EDECSISON_TEAM.NO_DECISION_YET;
     public EDECSISON_TEAM getTeamDecision() { return teamDecision; }
     public void setTeamDecision(EDECSISON_TEAM aPlayDecision) { teamDecision = aPlayDecision; }
-
-    @DatabaseField
-    private UUID team1UUID = null;
-    @DatabaseField
-    private UUID team2UUID = null;
 
     public Team getBattingTeam() {
         Team outTeam = null;
@@ -93,6 +88,7 @@ public class Match {
     }
 
     public Match(Team aTeam1, Team aTeam2) {
+        myUUID = Utility.generateUUID();
         team1 = aTeam1;
         team2 = aTeam2;
     }
