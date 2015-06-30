@@ -33,7 +33,7 @@ import java.sql.SQLException;
 import se.naresh.com.crickboard.R;
 
 public class CrickDBHelperOrm extends OrmLiteSqliteOpenHelper {
-    private static final String LOG_TAG = CrickDBHelper.class.getName();
+    private static final String LOG_TAG = CrickDBHelperOrm.class.getName();
     /* No downgrade possible on this SW for the moment */
     private static final int DB_VERSION = 1;
     private static final String DB_NAME = "CrickBoard.sqlite";
@@ -235,7 +235,6 @@ public class CrickDBHelperOrm extends OrmLiteSqliteOpenHelper {
             TableUtils.dropTable(connectionSource, Team.class, true);
             TableUtils.dropTable(connectionSource, Season.class, true);
             TableUtils.dropTable(connectionSource, Match.class, true);
-            TableUtils.dropTable(connectionSource, MatchPlayers.class, true);
             Log.d(LOG_TAG, "DBTables Dropped Successfully. DataBackup NOT DONE...");
             onCreate(database, connectionSource);
         } catch (SQLException e) {
