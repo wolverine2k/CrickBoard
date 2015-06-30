@@ -29,6 +29,8 @@ import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 
 import java.sql.SQLException;
+import java.util.Calendar;
+import java.util.Date;
 
 import se.naresh.com.crickboard.R;
 
@@ -93,7 +95,7 @@ public class CrickDBHelperOrm extends OrmLiteSqliteOpenHelper {
         createDummyPlayers();
         for(int i = 0; i < NO_OF_DUMMYDATA; ++i) {
             Team team = new Team();
-            team.setName("TestTeam" + Integer.toString(i));
+            team.setName("TestTeam " + Integer.toString(i));
             teamTableDao.createOrUpdate(team);
 
             Match match = new Match();
@@ -102,7 +104,8 @@ public class CrickDBHelperOrm extends OrmLiteSqliteOpenHelper {
             matchTableDao.createOrUpdate(match);
 
             Season season = new Season();
-            season.setName("TestSeason");
+            season.setName("TestSeason " + Integer.toString(i));
+            season.setYear(Integer.toString(Calendar.getInstance().get(Calendar.YEAR)));
             seasonTableDao.createOrUpdate(season);
         }
     }

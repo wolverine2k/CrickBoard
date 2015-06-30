@@ -33,7 +33,6 @@ import com.dexafree.materialList.controller.RecyclerItemClickListener;
 import com.dexafree.materialList.model.Card;
 import com.dexafree.materialList.model.CardItemView;
 import com.dexafree.materialList.view.MaterialListView;
-import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
@@ -155,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             for(Season season : seasons) {
                 SmallImageCard card = new SmallImageCard(this);
-                card.setTitle("Name: " + season.getName() + " Year: " + season.getYear());
+                card.setTitle("Name: " + season.getName() + "\nYear: " + season.getYear());
                 card.setDescription("Matches Played: " + season.getNumberOfMatches());
                 seasonsListView.add(card);
             }
