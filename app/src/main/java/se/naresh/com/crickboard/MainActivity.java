@@ -53,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
     private CrickDBHelperOrm dbHelper = null;
     private List<Season> seasons = null;
 
+    public enum EINTENT_TYPE { INTENT_SEASON, INTENT_NONE }
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -81,7 +83,8 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(view.getContext(), EditActivity.class);
                 /* Either implement parcelable in Seasons or just pass the seasonUUID. Latter
                 *  is simpler and will be optimized in later stages. */
-                intent.putExtra("Season", season.getMyUUID());
+                intent.putExtra("TYPE", EINTENT_TYPE.INTENT_SEASON);
+                intent.putExtra("VALUE", season.getMyUUID());
                 startActivity(intent);
             }
         });
