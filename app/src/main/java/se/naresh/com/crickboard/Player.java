@@ -80,7 +80,7 @@ public class Player {
 
     /* Points to different teams if the same player is included in different teams... */
     @ForeignCollectionField(eager = false)
-    private ForeignCollection<Team> teamsBelongingTo;
+    private ForeignCollection<MatchPlayer> teamsBelongingTo;
 
     private Boolean foundInDB = false;
 

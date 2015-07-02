@@ -32,7 +32,7 @@ import java.sql.SQLException;
 public class CrickDBConfigUtil extends OrmLiteConfigUtil {
     private static final Class<?>[] classes = new Class[] {
         Player.class, Wicket.class, Team.class, Season.class,
-        Over.class, Match.class, Ball.class
+        Over.class, Match.class, Ball.class, MatchPlayer.class
     };
 
     private static final String ORM_CONFIG_FILENAME = "crickdb_ormconfig.txt";

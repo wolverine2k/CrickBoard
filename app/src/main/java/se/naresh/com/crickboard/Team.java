@@ -68,9 +68,8 @@ public class Team {
     private UUID myUUID = null;
     public UUID getMyUUID() { return myUUID; }
 
-    @DatabaseField (foreign = true, columnName = "playerUUID")
-    private Player player;
-    public void setPlayer(Player aPlayer) { player = aPlayer; }
+    @ForeignCollectionField (eager = false)
+    private ForeignCollection<MatchPlayer> matchPlayers;
 
     /* Points to different matches as the same team is plays different matches... */
     @ForeignCollectionField(eager = false)

@@ -18,7 +18,6 @@
  */
 package se.naresh.com.crickboard;
 
-import android.app.ActionBar;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
@@ -30,9 +29,6 @@ import com.j256.ormlite.table.TableUtils;
 
 import java.sql.SQLException;
 import java.util.Calendar;
-import java.util.Date;
-
-import se.naresh.com.crickboard.R;
 
 public class CrickDBHelperOrm extends OrmLiteSqliteOpenHelper {
     private static final String LOG_TAG = CrickDBHelperOrm.class.getName();
@@ -49,6 +45,7 @@ public class CrickDBHelperOrm extends OrmLiteSqliteOpenHelper {
     private Dao<Over, String> overTableDao = null;
     private Dao<Match, String> matchTableDao = null;
     private Dao<Season, String> seasonTableDao = null;
+    private Dao<MatchPlayer, String> matchPlayerTableDao = null;
 
     static private CrickDBHelperOrm instance = null;
     static public void init(Context context) {
@@ -87,6 +84,7 @@ public class CrickDBHelperOrm extends OrmLiteSqliteOpenHelper {
         getSeasonTableDao();
         getWicketTableDao();
         getTeamTableDao();
+        getMatchPlayerTableDao();
     }
 
     private void insertDummyDataInTables() throws SQLException {
@@ -131,6 +129,19 @@ public class CrickDBHelperOrm extends OrmLiteSqliteOpenHelper {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
+    }
+
+    public Dao<MatchPlayer, String> getMatchPlayerTableDao() {
+        if(null == matchPlayerTableDao) {
+            try {
+                matchPlayerTableDao = getDao(MatchPlayer.class);
+            } catch (SQLException e) {
+                Log.e(LOG_TAG, "Error while getting matchPlayerTableDao" + e.getMessage());
+                e.printStackTrace();
+                throw new RuntimeException(e);
+            }
+        }
+        return matchPlayerTableDao;
     }
 
     public Dao<Season, String> getSeasonTableDao() {

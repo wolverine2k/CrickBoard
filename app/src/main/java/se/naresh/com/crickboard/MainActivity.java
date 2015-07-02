@@ -156,6 +156,7 @@ public class MainActivity extends AppCompatActivity {
                 SmallImageCard card = new SmallImageCard(this);
                 card.setTitle("Name: " + season.getName() + "\nYear: " + season.getYear());
                 card.setDescription("Matches Played: " + season.getNumberOfMatches());
+                card.setTag(season);
                 seasonsListView.add(card);
             }
         }
