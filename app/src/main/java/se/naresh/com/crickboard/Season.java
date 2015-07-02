@@ -18,11 +18,7 @@
  */
 package se.naresh.com.crickboard;
 
-import android.content.Context;
 import android.util.Log;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.ForeignCollection;
@@ -31,12 +27,14 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
-import java.lang.reflect.Array;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+/* TODO: Implement Parcelable interface so objects can be passed directly between
+*  activities and dbqueries can be reduced. */
 @DatabaseTable(tableName = "OrmSeasonTable")
 public class Season {
     private static final String LOG_TAG = Season.class.getName();
@@ -55,6 +53,12 @@ public class Season {
     private String year;
     public void setYear(String aYear) { year = aYear; }
     public String getYear() { return year; }
+
+    @DatabaseField(dataType = DataType.DATE_STRING)
+    public Date startDate;
+
+    @DatabaseField(dataType = DataType.DATE_STRING)
+    public Date endDate;
 
     @ForeignCollectionField(eager = false)
     private ForeignCollection<Match> seasonMatches;
@@ -92,6 +96,18 @@ public class Season {
             e.printStackTrace();
         }
         return seasonList;
+    }
+
+    public Season getSeason(UUID seasonUUID) {
+        setSeasonTableDao();
+        Season season = null;
+        try {
+            season = seasonTableDao.queryForId(myUUID.toString());
+        } catch (SQLException e) {
+            Log.e(LOG_TAG, "Error retrieving season from UUID " + seasonUUID + e.getMessage());
+            e.printStackTrace();
+        }
+        return season;
     }
 
     public void insertDataIntoTable(Season season) {

@@ -18,6 +18,7 @@
  */
 package se.naresh.com.crickboard;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -75,7 +76,13 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onItemLongClick(CardItemView view, int position) {
-                Log.d(LOG_TAG, "LONG_CLICK on Card" + position);
+                Log.d(LOG_TAG, "LONG_CLICK on Card. Now starting the EditActivity" + position);
+                Season season = (Season) view.getTag();
+                Intent intent = new Intent(view.getContext(), EditActivity.class);
+                /* Either implement parcelable in Seasons or just pass the seasonUUID. Latter
+                *  is simpler and will be optimized in later stages. */
+                intent.putExtra("Season", season.getMyUUID());
+                startActivity(intent);
             }
         });
 

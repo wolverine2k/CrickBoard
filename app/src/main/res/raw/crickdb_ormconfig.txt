@@ -1,5 +1,5 @@
 #
-# generated on 2015/07/02 12:20:46
+# generated on 2015/07/02 02:34:39
 #
 # --table-start--
 dataClass=se.naresh.com.crickboard.Player
@@ -129,6 +129,14 @@ useGetSet=true
 # --field-start--
 fieldName=year
 useGetSet=true
+# --field-end--
+# --field-start--
+fieldName=startDate
+dataPersister=DATE_STRING
+# --field-end--
+# --field-start--
+fieldName=endDate
+dataPersister=DATE_STRING
 # --field-end--
 # --field-start--
 fieldName=seasonMatches
