@@ -9,14 +9,14 @@ import android.view.ViewGroup;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class EditActivityFragment extends Fragment {
+public class EditSeasonsCardFragment extends Fragment {
 
-    public EditActivityFragment() {
+    public EditSeasonsCardFragment() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_edit, container, false);
+        return inflater.inflate(R.layout.fragment_season_edit, container, false);
     }
 }
