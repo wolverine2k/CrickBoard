@@ -1,5 +1,6 @@
 package se.naresh.com.crickboard;
 
+import android.content.Intent;
 import android.support.v4.app.DialogFragment;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -24,19 +25,27 @@ public class EditActivity extends AppCompatActivity {
         intentLaunched = (MainActivity.EINTENT_TYPE) bundle.get("TYPE");
         switch (intentLaunched) {
             case INTENT_SEASON:
-                UUID seasonUUID = (UUID)bundle.get("VALUE");
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                 EditSeasonsCardFragment seasonsCardFragment = new EditSeasonsCardFragment();
+                seasonsCardFragment.setSeasonInstance((UUID)bundle.get("VALUE"));
                 fragmentInstancePointer = seasonsCardFragment;
                 ft.replace(R.id.editActivityFragmentHolder, seasonsCardFragment);
                 ft.commit();
-                Log.d(LOG_TAG, "UUID For Season received: " + seasonUUID);
                 break;
             case INTENT_NONE:
             default:
                 Log.e(LOG_TAG, "No intent passed! Exiting this activity now...");
                 finish();
         }
+    }
+
+    public void selectImageFromGallery(View v) {
+        //create the intent for ImageGallery
+        Intent i = new Intent(Intent.ACTION_PICK);
+        i.setType("image/*");
+        //Start new activity with the LOAD_IMAGE_RESULT to handle back the result when the image is picked from the Image Gallery
+        startActivityForResult(i, 0);
+        Log.d(LOG_TAG, "Trying to pick an image!");
     }
 
     public void showStartDatePickerDialog(View v) {

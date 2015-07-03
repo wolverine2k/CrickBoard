@@ -33,7 +33,7 @@ import java.util.UUID;
 @DatabaseTable (tableName = "OrmPlayerTable")
 public class Player {
     private static final String LOG_TAG = Player.class.getName();
-    private Dao<Player, String> playerTableDao = null;
+    private Dao<Player, UUID> playerTableDao = null;
 
     @DatabaseField (useGetSet = true)
     private String name;

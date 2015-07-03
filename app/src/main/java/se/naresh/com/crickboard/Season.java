@@ -38,7 +38,7 @@ import java.util.UUID;
 @DatabaseTable(tableName = "OrmSeasonTable")
 public class Season {
     private static final String LOG_TAG = Season.class.getName();
-    private Dao<Season, String> seasonTableDao = null;
+    private Dao<Season, UUID> seasonTableDao = null;
 
     @DatabaseField(id = true, canBeNull = false, unique = true)
     private UUID myUUID = null;
@@ -102,7 +102,7 @@ public class Season {
         setSeasonTableDao();
         Season season = null;
         try {
-            season = seasonTableDao.queryForId(myUUID.toString());
+            season = seasonTableDao.queryForId(seasonUUID);
         } catch (SQLException e) {
             Log.e(LOG_TAG, "Error retrieving season from UUID " + seasonUUID + e.getMessage());
             e.printStackTrace();

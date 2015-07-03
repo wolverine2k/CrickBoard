@@ -29,6 +29,7 @@ import com.j256.ormlite.table.TableUtils;
 
 import java.sql.SQLException;
 import java.util.Calendar;
+import java.util.UUID;
 
 public class CrickDBHelperOrm extends OrmLiteSqliteOpenHelper {
     private static final String LOG_TAG = CrickDBHelperOrm.class.getName();
@@ -38,14 +39,14 @@ public class CrickDBHelperOrm extends OrmLiteSqliteOpenHelper {
     private static final Integer NO_OF_DUMMYDATA = 2;
     private static final Integer NO_OF_PLAYERS = 12;
 
-    private Dao<Player, String> playerTableDao = null;
-    private Dao<Ball, String> ballTableDao = null;
-    private Dao<Wicket, String> wicketTableDao = null;
-    private Dao<Team, String> teamTableDao = null;
-    private Dao<Over, String> overTableDao = null;
-    private Dao<Match, String> matchTableDao = null;
-    private Dao<Season, String> seasonTableDao = null;
-    private Dao<MatchPlayer, String> matchPlayerTableDao = null;
+    private Dao<Player, UUID> playerTableDao = null;
+    private Dao<Ball, UUID> ballTableDao = null;
+    private Dao<Wicket, UUID> wicketTableDao = null;
+    private Dao<Team, UUID> teamTableDao = null;
+    private Dao<Over, UUID> overTableDao = null;
+    private Dao<Match, UUID> matchTableDao = null;
+    private Dao<Season, UUID> seasonTableDao = null;
+    private Dao<MatchPlayer, UUID> matchPlayerTableDao = null;
 
     static private CrickDBHelperOrm instance = null;
     static public void init(Context context) {
@@ -118,6 +119,7 @@ public class CrickDBHelperOrm extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(connectionSource, Team.class);
             TableUtils.createTable(connectionSource, Season.class);
             TableUtils.createTable(connectionSource, Match.class);
+            TableUtils.createTable(connectionSource, MatchPlayer.class);
             Log.d(LOG_TAG, "DBTables created Successfully...");
 
             /* Now that the DBTables are created, insert some dummy data
@@ -131,7 +133,7 @@ public class CrickDBHelperOrm extends OrmLiteSqliteOpenHelper {
         }
     }
 
-    public Dao<MatchPlayer, String> getMatchPlayerTableDao() {
+    public Dao<MatchPlayer, UUID> getMatchPlayerTableDao() {
         if(null == matchPlayerTableDao) {
             try {
                 matchPlayerTableDao = getDao(MatchPlayer.class);
@@ -144,7 +146,7 @@ public class CrickDBHelperOrm extends OrmLiteSqliteOpenHelper {
         return matchPlayerTableDao;
     }
 
-    public Dao<Season, String> getSeasonTableDao() {
+    public Dao<Season, UUID> getSeasonTableDao() {
         if(null == seasonTableDao) {
             try {
                 seasonTableDao = getDao(Season.class);
@@ -157,7 +159,7 @@ public class CrickDBHelperOrm extends OrmLiteSqliteOpenHelper {
         return seasonTableDao;
     }
 
-    public Dao<Match, String> getMatchTableDao() {
+    public Dao<Match, UUID> getMatchTableDao() {
         if(null == matchTableDao) {
             try {
                 matchTableDao = getDao(Match.class);
@@ -170,7 +172,7 @@ public class CrickDBHelperOrm extends OrmLiteSqliteOpenHelper {
         return matchTableDao;
     }
 
-    public Dao<Over, String> getOverTableDao() {
+    public Dao<Over, UUID> getOverTableDao() {
         if(null == overTableDao) {
             try {
                 overTableDao = getDao(Over.class);
@@ -183,7 +185,7 @@ public class CrickDBHelperOrm extends OrmLiteSqliteOpenHelper {
         return overTableDao;
     }
 
-    public Dao<Team, String> getTeamTableDao() {
+    public Dao<Team, UUID> getTeamTableDao() {
         if(null == teamTableDao) {
             try {
                 teamTableDao = getDao(Team.class);
@@ -196,7 +198,7 @@ public class CrickDBHelperOrm extends OrmLiteSqliteOpenHelper {
         return teamTableDao;
     }
 
-    public Dao<Wicket, String> getWicketTableDao() {
+    public Dao<Wicket, UUID> getWicketTableDao() {
         if(null == wicketTableDao) {
             try {
                 wicketTableDao = getDao(Wicket.class);
@@ -209,7 +211,7 @@ public class CrickDBHelperOrm extends OrmLiteSqliteOpenHelper {
         return wicketTableDao;
     }
 
-    public Dao<Ball, String> getBallTableDao() {
+    public Dao<Ball, UUID> getBallTableDao() {
         if(null == ballTableDao) {
             try {
                 ballTableDao = getDao(Ball.class);
@@ -222,7 +224,7 @@ public class CrickDBHelperOrm extends OrmLiteSqliteOpenHelper {
         return ballTableDao;
     }
 
-    public Dao<Player, String> getPlayerTableDao() {
+    public Dao<Player, UUID> getPlayerTableDao() {
         if(null == playerTableDao) {
             try {
                 playerTableDao = getDao(Player.class);
@@ -249,6 +251,7 @@ public class CrickDBHelperOrm extends OrmLiteSqliteOpenHelper {
             TableUtils.dropTable(connectionSource, Team.class, true);
             TableUtils.dropTable(connectionSource, Season.class, true);
             TableUtils.dropTable(connectionSource, Match.class, true);
+            TableUtils.dropTable(connectionSource, MatchPlayer.class, true);
             Log.d(LOG_TAG, "DBTables Dropped Successfully. DataBackup NOT DONE...");
             onCreate(database, connectionSource);
         } catch (SQLException e) {

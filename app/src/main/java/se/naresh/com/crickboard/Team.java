@@ -32,7 +32,7 @@ import java.util.UUID;
 @DatabaseTable (tableName = "OrmTeamTable")
 public class Team {
     private static final String LOG_TAG = Team.class.getName();
-    private Dao<Team, String> teamTableDao = null;
+    private Dao<Team, UUID> teamTableDao = null;
 
     @DatabaseField (useGetSet = true)
     private String name = null;
