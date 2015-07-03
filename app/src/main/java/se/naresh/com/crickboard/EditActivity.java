@@ -1,38 +1,69 @@
 package se.naresh.com.crickboard;
 
-import android.support.v7.app.ActionBarActivity;
+import android.support.v4.app.DialogFragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.app.FragmentTransaction;
+import android.view.View;
 
 import java.util.UUID;
 
-public class EditActivity extends ActionBarActivity {
+public class EditActivity extends AppCompatActivity {
     private static final String LOG_TAG = EditActivity.class.getName();
-
-    @Override
+    private static Fragment fragmentInstancePointer = null;
+    private static MainActivity.EINTENT_TYPE intentLaunched = null;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
 
         Bundle bundle = getIntent().getExtras();
-        MainActivity.EINTENT_TYPE type = (MainActivity.EINTENT_TYPE) bundle.get("TYPE");
-        switch (type) {
+        intentLaunched = (MainActivity.EINTENT_TYPE) bundle.get("TYPE");
+        switch (intentLaunched) {
             case INTENT_SEASON:
                 UUID seasonUUID = (UUID)bundle.get("VALUE");
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.editActivityFragmentHolder, new EditSeasonsCardFragment());
+                EditSeasonsCardFragment seasonsCardFragment = new EditSeasonsCardFragment();
+                fragmentInstancePointer = seasonsCardFragment;
+                ft.replace(R.id.editActivityFragmentHolder, seasonsCardFragment);
                 ft.commit();
                 Log.d(LOG_TAG, "UUID For Season received: " + seasonUUID);
                 break;
+            case INTENT_NONE:
             default:
                 Log.e(LOG_TAG, "No intent passed! Exiting this activity now...");
                 finish();
         }
     }
 
+    public void showStartDatePickerDialog(View v) {
+        switch (intentLaunched) {
+            case INTENT_SEASON:
+                EditSeasonsCardFragment seasonsCardFragment = (EditSeasonsCardFragment)fragmentInstancePointer;
+                seasonsCardFragment.showStartDatePickerDialog(v);
+                break;
+            case INTENT_NONE:
+            default:
+                Log.e(LOG_TAG, "No intent set! Exiting this activity now...");
+                finish();
+        }
+    }
+
+    public void showEndDatePickerDialog(View v) {
+        switch (intentLaunched) {
+            case INTENT_SEASON:
+                EditSeasonsCardFragment seasonsCardFragment = (EditSeasonsCardFragment)fragmentInstancePointer;
+                seasonsCardFragment.showEndDatePickerDialog(v);
+                break;
+            case INTENT_NONE:
+            default:
+                Log.e(LOG_TAG, "No intent set! Exiting this activity now...");
+                finish();
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
