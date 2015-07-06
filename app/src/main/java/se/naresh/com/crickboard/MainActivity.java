@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         dbHelper = CrickDBHelperOrm.getInstance();
         seasonDb = new Season();
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.mainActivityToolbar);
         setSupportActionBar(toolbar);
 
         seasonsListView = (MaterialListView) findViewById(R.id.seasonsListView);

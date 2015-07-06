@@ -49,16 +49,19 @@ public class Season {
     public void setName(String aName) { name = aName; }
     public String getName() { return name; }
 
-    @DatabaseField(useGetSet = true)
+    @DatabaseField
     private String year;
-    public void setYear(String aYear) { year = aYear; }
     public String getYear() { return year; }
 
-    @DatabaseField(dataType = DataType.DATE_STRING)
-    public Date startDate;
+    @DatabaseField(dataType = DataType.DATE_STRING, useGetSet = true)
+    private Date startDate;
+    public void setStartDate(Date aDate) { startDate = aDate; }
+    public Date getStartDate() { return startDate; }
 
-    @DatabaseField(dataType = DataType.DATE_STRING)
-    public Date endDate;
+    @DatabaseField(dataType = DataType.DATE_STRING, useGetSet = true)
+    private Date endDate;
+    public void setEndDate(Date aDate) { endDate = aDate; }
+    public Date getEndDate() { return endDate; }
 
     @ForeignCollectionField(eager = false)
     private ForeignCollection<Match> seasonMatches;

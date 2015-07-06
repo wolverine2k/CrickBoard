@@ -104,7 +104,8 @@ public class CrickDBHelperOrm extends OrmLiteSqliteOpenHelper {
 
             Season season = new Season();
             season.setName("TestSeason " + Integer.toString(i));
-            season.setYear(Integer.toString(Calendar.getInstance().get(Calendar.YEAR)));
+            season.setStartDate(Calendar.getInstance().getTime());
+            season.setEndDate(Calendar.getInstance().getTime());
             seasonTableDao.createOrUpdate(season);
         }
     }

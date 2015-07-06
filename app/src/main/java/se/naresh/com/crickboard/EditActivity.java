@@ -1,10 +1,10 @@
 package se.naresh.com.crickboard;
 
 import android.content.Intent;
-import android.support.v4.app.DialogFragment;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,6 +20,9 @@ public class EditActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.editActivityToolbar);
+        setSupportActionBar(toolbar);
 
         Bundle bundle = getIntent().getExtras();
         intentLaunched = (MainActivity.EINTENT_TYPE) bundle.get("TYPE");

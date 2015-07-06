@@ -11,6 +11,11 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -24,10 +29,38 @@ public class EditSeasonsCardFragment extends Fragment {
 
     public EditSeasonsCardFragment() { seasonInst = new Season(); }
 
-    private void setDataInUI() {
-        EditText name = (EditText)getActivity().findViewById(R.id.editSeasonText);
-        name.setText(seasonInst.getName(), TextView.BufferType.EDITABLE);
+    /* If set to true, function will set otherwise will get */
+    private String seasonNameSetting(String aSeasonName, Boolean aSet) {
+        String result = null;
+        EditText editText = (EditText) getActivity().findViewById(R.id.editSeasonText);
+        if(aSet) {
+            editText.setText(seasonInst.getName(), TextView.BufferType.EDITABLE);
+        } else {
+            result = editText.getText().toString();
+        }
+        return result;
+    }
 
+    private Date seasonDateSetting(int id, Date aDate, Boolean aSet) throws ParseException {
+        Date result = null;
+        TextView textView = (TextView) getActivity().findViewById(id);
+        if(aSet) {
+            textView.setText(aDate.toString());
+        } else {
+            result = SimpleDateFormat.getInstance().parse(textView.getText().toString());
+        }
+        return result;
+    }
+
+    private void setDataInUI() {
+        seasonNameSetting(seasonInst.getName(), true);
+        try {
+            seasonDateSetting(R.id.seasonStartDate, seasonInst.getStartDate(), true);
+            seasonDateSetting(R.id.seasonEndDate, seasonInst.getEndDate(), true);
+        } catch (ParseException e) {
+            Log.e(LOG_TAG, "Error while setting data in UI in EditSeasonsCardFragment, " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     public void setSeasonInstance(UUID aUUID) {
