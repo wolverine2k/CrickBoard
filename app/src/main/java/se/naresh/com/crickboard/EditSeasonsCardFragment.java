@@ -12,7 +12,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.UUID;
-import java.util.concurrent.TimeoutException;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -68,7 +67,7 @@ public class EditSeasonsCardFragment extends Fragment {
             /* Print an error as the case should never occur... */
             Log.e(LOG_TAG, "OnActivityResult in EditSeasonsCardFragment called with requestCode " + requestCode);
         }
-        Log.d(LOG_TAG, "Back to my Fragment Naresh...");
+        Log.d(LOG_TAG, "Back to EditSeasonsCardFragment");
     }
 
     @Override

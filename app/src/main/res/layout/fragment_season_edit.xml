@@ -74,5 +74,17 @@
             android:text="@string/text_set_end_date"
             android:onClick="showEndDatePickerDialog" />
 
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.17" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_manipulate_matches"
+            android:id="@+id/manipulateMatchesInSeason"
+            android:layout_gravity="center_horizontal" />
+
     </LinearLayout>
 </RelativeLayout>
