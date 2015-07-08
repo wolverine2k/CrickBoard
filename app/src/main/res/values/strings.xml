@@ -21,4 +21,7 @@
     <string name="text_set_end_date">Set End Date</string>
     <string name="text_select_image">Set Season\'s Image:</string>
     <string name="text_manipulate_matches">Add/Remove Matches In This Season</string>
+
+    <string name="text_done">Done</string>
+    <string name="text_delete">Delete</string>
 </resources>
