@@ -1,12 +1,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto" >
 
-    <item android:id="@+id/saveChanges"
+    <item android:id="@+id/action_saveChanges"
         android:icon="@mipmap/ic_done_action"
         android:title="@string/text_done"
         app:showAsAction="ifRoom|collapseActionView" />
 
-    <item android:id="@+id/deleteCurrent"
+    <item android:id="@+id/action_deleteCurrent"
         android:icon="@mipmap/ic_delete_action"
         android:title="@string/text_delete"
         app:showAsAction="ifRoom|collapseActionView" />

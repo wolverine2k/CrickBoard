@@ -88,6 +88,10 @@ public class EditSeasonsCardFragment extends Fragment {
         datePickerFragment.show(this.getFragmentManager(), getString(R.string.text_set_start_date));
     }
 
+    public boolean saveChangesToSeasons() {
+        return false;
+    }
+
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Make sure fragment codes match up
         if(EREQUEST_CODE.REQUEST_START_DATE.ordinal() == requestCode) {

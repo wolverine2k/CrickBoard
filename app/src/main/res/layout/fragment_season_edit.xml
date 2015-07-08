@@ -16,8 +16,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/text_name"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:text="@string/text_name" />
 
         <EditText
             android:layout_width="match_parent"
@@ -26,24 +25,20 @@
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="216dp"
             android:id="@+id/imageView"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="0.60"
             android:clickable="true"
-            android:onClick="selectImageFromGallery" />
+            android:onClick="selectImageFromGallery" android:background="@drawable/header" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/text_start_date"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:text="@string/text_start_date" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/seasonStartDate"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:id="@+id/seasonStartDate" />
 
         <Button
             android:layout_width="wrap_content"
@@ -51,33 +46,21 @@
             android:text="@string/text_set_start_date"
             android:onClick="showStartDatePickerDialog" />
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.17" />
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/text_end_date"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:text="@string/text_end_date" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/seasonEndDate"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:id="@+id/seasonEndDate" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/text_set_end_date"
             android:onClick="showEndDatePickerDialog" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.17" />
 
         <Button
             android:layout_width="wrap_content"

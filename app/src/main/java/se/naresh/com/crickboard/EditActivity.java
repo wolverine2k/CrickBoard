@@ -84,6 +84,30 @@ public class EditActivity extends AppCompatActivity {
         return true;
     }
 
+    private void saveChangesDone() {
+        switch (intentLaunched) {
+            case INTENT_SEASON:
+                EditSeasonsCardFragment seasonsCardFragment = (EditSeasonsCardFragment)fragmentInstancePointer;
+                seasonsCardFragment.saveChangesToSeasons();
+                break;
+            case INTENT_NONE:
+            default:
+                Log.e(LOG_TAG, "No intent set for saving! Exiting activity now...");
+                finish();
+        }
+    }
+
+    private void deleteCurrentCard() {
+        switch (intentLaunched) {
+            case INTENT_SEASON:
+                break;
+            case INTENT_NONE:
+            default:
+                Log.e(LOG_TAG, "No intent set for DeletingCurrentCard! Exiting activity now...");
+                finish();
+        }
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -91,9 +115,13 @@ public class EditActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch(id) {
+            case R.id.action_saveChanges:
+                saveChangesDone();
+                break;
+            case R.id.action_deleteCurrent:
+                deleteCurrentCard();
+                break;
         }
 
         return super.onOptionsItemSelected(item);
