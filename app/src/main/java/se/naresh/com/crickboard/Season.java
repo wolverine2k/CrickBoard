@@ -29,6 +29,7 @@ import com.j256.ormlite.table.DatabaseTable;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -55,7 +56,12 @@ public class Season {
 
     @DatabaseField(dataType = DataType.DATE_STRING, useGetSet = true)
     private Date startDate;
-    public void setStartDate(Date aDate) { startDate = aDate; }
+    public void setStartDate(Date aDate) {
+        startDate = aDate;
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(aDate);
+        year = Integer.toString(cal.get(Calendar.YEAR));
+    }
     public Date getStartDate() { return startDate; }
 
     @DatabaseField(dataType = DataType.DATE_STRING, useGetSet = true)

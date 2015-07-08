@@ -27,6 +27,8 @@ import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.UUID;
@@ -49,9 +51,12 @@ public class CrickDBHelperOrm extends OrmLiteSqliteOpenHelper {
     private Dao<MatchPlayer, UUID> matchPlayerTableDao = null;
 
     static private CrickDBHelperOrm instance = null;
+    static private Context appContext = null;
+
     static public void init(Context context) {
         if(null == instance) {
             instance = new CrickDBHelperOrm(context);
+            appContext = context;
         }
     }
 
@@ -106,6 +111,7 @@ public class CrickDBHelperOrm extends OrmLiteSqliteOpenHelper {
             season.setName("TestSeason " + Integer.toString(i));
             season.setStartDate(Calendar.getInstance().getTime());
             season.setEndDate(Calendar.getInstance().getTime());
+
             seasonTableDao.createOrUpdate(season);
         }
     }

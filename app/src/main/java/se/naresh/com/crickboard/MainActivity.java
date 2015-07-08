@@ -19,6 +19,9 @@
 package se.naresh.com.crickboard;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -27,6 +30,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+
+import com.dexafree.materialList.cards.BigImageCard;
 import com.dexafree.materialList.cards.SmallImageCard;
 import com.dexafree.materialList.cards.WelcomeCard;
 import com.dexafree.materialList.controller.OnDismissCallback;
@@ -163,9 +168,15 @@ public class MainActivity extends AppCompatActivity {
             seasonsListView.add(card);
         } else {
             for(Season season : seasons) {
-                SmallImageCard card = new SmallImageCard(this);
+                BigImageCard card = new BigImageCard(this);
                 card.setTitle("Name: " + season.getName() + "\nYear: " + season.getYear());
                 card.setDescription("Matches Played: " + season.getNumberOfMatches());
+                if(season.getPngImage() != null) {
+                    Bitmap bm = BitmapFactory.decodeByteArray(season.getPngImage(), 0, season.getPngImage().length);
+                    card.setDrawable(new BitmapDrawable(bm));
+                } else {
+                    card.setDrawable(R.drawable.header);
+                }
                 card.setTag(season);
                 seasonsListView.add(card);
             }

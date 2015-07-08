@@ -25,12 +25,25 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.widget.DatePicker;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.UUID;
 
 public class Utility {
     public static UUID generateUUID() {
         return UUID.randomUUID();
+    }
+
+    public static byte[] readFileIntoByteArray(String aFilePath) throws IOException {
+        File file = new File(aFilePath);
+        FileInputStream fin = new FileInputStream(file);
+        byte result[] = new byte[(int)file.length()];
+        fin.read(result);
+        fin.close();
+        return result;
     }
 
     public static class MyDate {

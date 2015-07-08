@@ -26,9 +26,9 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="216dp"
-            android:id="@+id/imageView"
+            android:id="@+id/editSeasonImageView"
             android:clickable="true"
-            android:onClick="selectImageFromGallery" android:background="@drawable/header" />
+            android:onClick="selectImageFromGallery" />
 
         <TextView
             android:layout_width="wrap_content"

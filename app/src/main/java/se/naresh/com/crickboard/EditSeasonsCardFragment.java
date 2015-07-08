@@ -1,6 +1,9 @@
 package se.naresh.com.crickboard;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -9,10 +12,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -52,13 +58,35 @@ public class EditSeasonsCardFragment extends Fragment {
         return result;
     }
 
+    private byte[] seasonImageSetting(byte[] pngImage, Boolean aSet) throws IOException {
+        byte[] result = null;
+        ImageView imgView = (ImageView) getActivity().findViewById(R.id.editSeasonImageView);
+        if(aSet) {
+            if(pngImage == null) {
+                imgView.setImageResource(R.drawable.header);
+            } else {
+                imgView.setImageBitmap(BitmapFactory.decodeByteArray(pngImage, 0, pngImage.length));
+            }
+        } else {
+            Bitmap bm = ((BitmapDrawable)imgView.getDrawable()).getBitmap();
+            ByteBuffer buffer = ByteBuffer.allocate(bm.getByteCount());
+            bm.copyPixelsToBuffer(buffer);
+            result = buffer.array();
+        }
+        return result;
+    }
+
     private void setDataInUI() {
         seasonNameSetting(seasonInst.getName(), true);
         try {
             seasonDateSetting(R.id.seasonStartDate, seasonInst.getStartDate(), true);
             seasonDateSetting(R.id.seasonEndDate, seasonInst.getEndDate(), true);
+            seasonImageSetting(seasonInst.getPngImage(), true);
         } catch (ParseException e) {
-            Log.e(LOG_TAG, "Error while setting data in UI in EditSeasonsCardFragment, " + e.getMessage());
+            Log.e(LOG_TAG, "ParseException EditSeasonsCardFragment, " + e.getMessage());
+            e.printStackTrace();
+        } catch (IOException e) {
+            Log.e(LOG_TAG, "IOException EditSeasonsCardFragment, " + e.getMessage());
             e.printStackTrace();
         }
     }
